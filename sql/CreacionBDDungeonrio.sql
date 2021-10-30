@@ -27,6 +27,7 @@ CREATE TABLE personaje(ID INT AUTO_INCREMENT UNIQUE,
 							FOREIGN KEY (ID_hermandad) REFERENCES hermandad(ID) ON DELETE CASCADE);
 CREATE TABLE grupo(ID INT AUTO_INCREMENT UNIQUE,
 						nombre VARCHAR(50),
+						puntuacion INT,
 						PRIMARY KEY (ID));
 CREATE TABLE mazmorra(ID INT AUTO_INCREMENT UNIQUE,
 							tiempoMaximo TIME,
@@ -54,8 +55,10 @@ VALUES("Apse","Apse");
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Ace","Ace");
 
-INSERT INTO hermandad(nombre)
-VALUES("La Cruzada Escarlata");
+INSERT INTO hermandad(nombre,avance)
+VALUES("La Cruzada Escarlata",10);
+INSERT INTO hermandad(nombre,avance)
+VALUES("El Imperio desconocido",8);
 
 INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
 VALUES("Andgrod","Paladin","Tank",TRUE,1,1,213);
@@ -98,11 +101,23 @@ VALUES(3,2,"0:30:0",120);
 INSERT INTO realiza(ID_personaje,ID_mazmorra,tiempo_empleado,puntuacion)
 VALUES(6,2,"0:30:0",120);
 
-INSERT INTO grupo(nombre)
-VALUES("Deplete Team");
+INSERT INTO grupo(nombre,puntuacion)
+VALUES("Deplete Team",200);
+INSERT INTO grupo(nombre,puntuacion)
+VALUES("PI ME",160);
 
 INSERT INTO pertenece(ID_grupo,ID_personaje)
 VALUES(1,1);
+INSERT INTO pertenece(ID_grupo,ID_personaje)
+VALUES(1,4);
+INSERT INTO pertenece(ID_grupo,ID_personaje)
+VALUES(1,5);
+INSERT INTO pertenece(ID_grupo,ID_personaje)
+VALUES(1,7);
+INSERT INTO pertenece(ID_grupo,ID_personaje)
+VALUES(1,9);
+INSERT INTO pertenece(ID_grupo,ID_personaje)
+VALUES(1,6);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
 VALUES(1,4);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
