@@ -13,11 +13,8 @@
 <body class=" bg-secondary">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <header class="container bg-dark p-2">
-        <h1 class="text-white">Dungeonrio</h1>
-    </header>
-    <main class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <!--<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">-->
             <div class="container-fluid">
                 <a class="navbar-brand p-2" href="#">Dungeonrio</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,11 +49,13 @@
                 </form>
                 </div>
             </div>
-        </nav>
+        <!--</nav>-->
+    </header>
+    <main class="container mt-5">
         <div class="container bg-light p-5">
-            <div class="row">
+            <div class="row border-bottom pb-5">
                 <div class="col">
-                    <div class="card">
+                    <div class="card shadow">
                         <h1 class="card-header">DPS</h1>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
@@ -68,7 +67,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card shadow">
                         <h1 class="card-header">Tanks</h1>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
@@ -80,7 +79,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card shadow">
                         <h1 class="card-header">Healers</h1>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
@@ -92,9 +91,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-5">
+            <div class="row mt-5 border-bottom pb-5">
                 <div class="col">
-                    <div class="card">
+                    <div class="card shadow">
                         <h1 class="card-header">Hermandades</h1>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
@@ -106,7 +105,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card shadow">
                         <h1 class="card-header">Grupos</h1>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
@@ -120,7 +119,7 @@
             </div>
             <div class="row justify-content-center mt-5">
                 <div class="col-8">
-                    <div class="card">
+                    <div class="card shadow">
                         <h1 class="card-header">Progreso de Hermandades</h1>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
@@ -134,8 +133,16 @@
             </div>
         </div>
     </main>
-    <footer>
-
+    <footer class="container-fluid bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <p>Pagina Realizada por Jaime Aguilar Aroca</p>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
