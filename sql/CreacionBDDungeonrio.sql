@@ -43,6 +43,8 @@ CREATE TABLE pertenece(ID_grupo INT,
 							ID_personaje INT,
 							FOREIGN KEY (ID_grupo) REFERENCES grupo(ID) ON DELETE CASCADE,
 							FOREIGN KEY (ID_personaje) REFERENCES personaje(ID) ON DELETE CASCADE);
+CREATE TABLE progreso(ID_hermandad INT,
+							jefeMatado INT);
 
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Andgrod","Andgrod");
@@ -54,6 +56,10 @@ INSERT INTO jugador(usuario,contraseña)
 VALUES("Apse","Apse");
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Ace","Ace");
+INSERT INTO jugador(usuario,contraseña)
+VALUES("Pachamama","Pachamama");
+INSERT INTO jugador(usuario,contraseña)
+VALUES("Icadi","Icadi");
 
 INSERT INTO hermandad(nombre,avance)
 VALUES("La Cruzada Escarlata",10);
@@ -78,6 +84,10 @@ INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_he
 VALUES("Bhikuni","Monje","Tank",TRUE,4,1,110);
 INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
 VALUES("Ceror","Caballero de la Muerte","DPS",FALSE,3,1,0);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
+VALUES("Pachamama","Druida","Healer",TRUE,6,1,0);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
+VALUES("Icadi","Druida","Healer",TRUE,7,1,0);
 
 INSERT INTO mazmorra(nombre,tiempoMaximo)
 VALUES("Reposo de los Reyes","0:40:0");
@@ -126,3 +136,40 @@ INSERT INTO pertenece(ID_grupo,ID_personaje)
 VALUES(1,7);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
 VALUES(1,9);
+
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,1);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(2,1);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,2);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,3);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(2,2);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(2,3);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,4);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,5);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,6);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(2,4);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(2,5);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,7);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,8);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(2,6);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,9);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(1,10);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(2,7);
+INSERT INTO progreso(ID_hermandad,jefeMatado)
+VALUES(2,8);
