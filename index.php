@@ -19,7 +19,8 @@
             <div class="container-fluid">
                 <a class="navbar-brand p-2" href="#">
                     <img src="img/logo.png" alt="logo" width="30" height="30" class="d-inline-block align-text-top">
-                    Dungeonrio</a>
+                    Dungeonrio
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -50,6 +51,7 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <a class="m-1 btn btn-dark" href="login.php">Login</a>
                 </div>
             </div>
         <!--</nav>-->
