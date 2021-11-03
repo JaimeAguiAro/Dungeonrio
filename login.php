@@ -9,7 +9,37 @@
     <link rel="stylesheet" href="estilos/login.css">
 </head>
 <body>
-    <form class="box" action="index.php" method="post">
+    <?php
+        session_start();
+        $error = false;
+        if (isset($_GET["login"])) {
+            $loged = false;
+            $user = $_GET["user"];
+            $contra = $_GET["contra"];
+            $conection = mysqli_connect('127.0.0.1', 'root', '');
+            mysqli_select_db($conection, "dungeonrio");
+            $sql = "SELECT * FROM jugador 
+                    WHERE usuario = '$user' AND contraseña = '$contra'";
+            $result = mysqli_query($conection,$sql);
+            if (mysqli_num_rows($result)==1) {
+                echo "funciona";
+                $loged = true;
+            }else {
+                $error = true;
+            }
+            if ($loged) {  
+                mysqli_free_result($result);
+                mysqli_close($conection);
+                $_SESSION['user'] = $user;
+                header("Location: http://localhost/Dungeonrio/");
+                exit();
+            }else {
+                mysqli_free_result($result);
+                mysqli_close($conection);
+            }
+        }
+    ?>
+    <form class="box" action="login.php" method="get">
         <h1><a href="index.php">
                     <img src="img/logo.png" alt="logo" width="30" height="30">
                     Dungeonrio
@@ -17,6 +47,11 @@
         <input type="text" name="user" placeholder="Usuario">
         <input type="password" name="contra" placeholder="Contraseña">
         <input type="submit" value="Login" name="login">
+        <?php
+        if ($error) {
+            echo '<p id="error" style="color: red;">El Usuario o la Contraseña son incorrectos</p>';
+        }
+        ?>
     </form>
 </body>
 </html>

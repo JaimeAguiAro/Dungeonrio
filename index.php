@@ -10,6 +10,7 @@
 </head>
 <?php
     include "backend.php";
+    session_start();
 ?>
 <body class=" bg-secondary">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
@@ -51,13 +52,31 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <a class="m-1 btn btn-dark" href="login.php">Login</a>
+                <?php
+                    if (isset($_SESSION['user'])) {
+                        $user = $_SESSION['user'];
+                        echo "<div class='dropstart ps-2'>";
+                        echo "<button type='button' class='btn btn-secondary dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>$user</button>
+                        <ul class='dropdown-menu'>
+                            <li><a class='dropdown-item' href='#'>Action</a></li>
+                            <li><a class='dropdown-item' href='#'>Another action</a></li>
+                            <li><hr class='dropdown-divider'></li>
+                            <li><a class='dropdown-item' href='#'>Something else here</a></li>
+                        </ul>";
+                        echo "</div>";
+                    }
+                ?>
+                <?php
+                    if (!isset($_SESSION['user'])) {
+                        echo "<a class='m-1 btn btn-dark' href='login.php'>Login</a>";
+                    }
+                ?>
                 </div>
             </div>
         <!--</nav>-->
     </header>
-    <main class="container mt-5">
-        <div class="container bg-light p-5">
+    <main class="container mt-5 mb-3">
+        <div class="container bg-light p-5 shadow">
             <div class="row border-bottom pb-5">
                 <div class="col">
                     <div class="card shadow">
