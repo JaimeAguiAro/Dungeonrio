@@ -12,10 +12,10 @@
     <?php
         session_start();
         $error = false;
-        if (isset($_GET["login"])) {
+        if (isset($_POST["login"])) {
             $loged = false;
-            $user = $_GET["user"];
-            $contra = $_GET["contra"];
+            $user = $POST["user"];
+            $contra = $POST["contra"];
             $conection = mysqli_connect('127.0.0.1', 'root', '');
             mysqli_select_db($conection, "dungeonrio");
             $sql = "SELECT * FROM jugador 
@@ -39,7 +39,7 @@
             }
         }
     ?>
-    <form class="box" action="login.php" method="get">
+    <form class="box" action="login.php" method="post">
         <h1><a href="index.php">
                     <img src="img/logo.png" alt="logo" width="30" height="30">
                     Dungeonrio

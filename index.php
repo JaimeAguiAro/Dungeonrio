@@ -13,6 +13,58 @@
     session_start();
 ?>
 <body class=" bg-secondary">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function busqueda(){
+            var busquedatxt = document.getElementById("busqueda").value;
+            alert(busquedatxt);
+            // $.ajax({
+            //     type: "POST",
+            //     url: 'backend.php',
+            //     data: $(this).serialize(),
+            //     success: function(response)
+            //     {
+            //         var jsonData = JSON.parse(response);
+
+            //         // user is logged in successfully in the back-end
+            //         // let's redirect
+            //         if (jsonData.success == "1")
+            //         {
+            //             location.href = 'my_profile.php';
+            //         }
+            //         else
+            //         {
+            //             alert('Invalid Credentials!');
+            //         }
+            //     }
+            // });
+        }
+        // var busqueda = document.getElementById("busqueda");
+        // busqueda.addEventListener("keypress", alert("Hello! I am an alert box!!"));
+        // $("#busqueda").addEventListener("keypress", function(){
+        //     alert("Hello! I am an alert box!!");
+            // $.ajax({
+            //     type: "POST",
+            //     url: 'backend.php',
+            //     data: $(this).serialize(),
+            //     success: function(response)
+            //     {
+            //         var jsonData = JSON.parse(response);
+
+            //         // user is logged in successfully in the back-end
+            //         // let's redirect
+            //         if (jsonData.success == "1")
+            //         {
+            //             location.href = 'my_profile.php';
+            //         }
+            //         else
+            //         {
+            //             alert('Invalid Credentials!');
+            //         }
+            //     }
+            // });
+        // });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
@@ -31,30 +83,17 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a class="nav-link active" href="#">Link</a>
                     </li>
                 </ul>
-                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Buscar Personaje o hermandad">
+                <input style="width: 270px;" type="text" list="datalistOptions" onkeypress="busqueda()" id="busqueda" placeholder="Buscar Personaje o hermandad">
                 <datalist id="datalistOptions">
-                <option value="San Francisco">
-                <option value="New York">
-                <option value="Seattle">
-                <option value="Los Angeles">
-                <option value="Chicago">
+                   <option value="San Francisco">
+                    <option value="New York">
+                    <option value="Seattle">
+                    <option value="Los Angeles">
+                    <option value="Chicago">
+                        
                 </datalist>
                 <?php
                     if (isset($_SESSION['user'])) {
