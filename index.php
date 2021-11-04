@@ -48,10 +48,14 @@
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Buscar Personaje o hermandad">
+                <datalist id="datalistOptions">
+                <option value="San Francisco">
+                <option value="New York">
+                <option value="Seattle">
+                <option value="Los Angeles">
+                <option value="Chicago">
+                </datalist>
                 <?php
                     if (isset($_SESSION['user'])) {
                         $user = $_SESSION['user'];
