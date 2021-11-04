@@ -78,7 +78,7 @@
     <main class="container mt-5 mb-3">
         <div class="container bg-light p-5 shadow">
             <div class="row border-bottom pb-5">
-                <div class="col">
+                <div class="col-md">
                     <div class="card shadow">
                         <h1 class="card-header">DPS</h1>
                         <div class="card-body">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md">
                     <div class="card shadow">
                         <h1 class="card-header">Tanks</h1>
                         <div class="card-body">
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md">
                     <div class="card shadow">
                         <h1 class="card-header">Healers</h1>
                         <div class="card-body">
