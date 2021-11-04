@@ -127,15 +127,15 @@ VALUES(1,7);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
 VALUES(1,9);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
-VALUES(1,6);
+VALUES(2,6);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
-VALUES(1,4);
+VALUES(2,4);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
-VALUES(1,5);
+VALUES(2,5);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
-VALUES(1,7);
+VALUES(2,7);
 INSERT INTO pertenece(ID_grupo,ID_personaje)
-VALUES(1,9);
+VALUES(2,9);
 
 INSERT INTO progreso(ID_hermandad,jefeMatado)
 VALUES(1,1);
