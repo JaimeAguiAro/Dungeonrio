@@ -10,12 +10,12 @@
 </head>
 <body>
     <?php
-        session_start();
         $error = false;
         if (isset($_POST["login"])) {
+            session_start();
             $loged = false;
-            $user = $POST["user"];
-            $contra = $POST["contra"];
+            $user = $_POST["user"];
+            $contra = $_POST["contra"];
             $conection = mysqli_connect('127.0.0.1', 'root', '');
             mysqli_select_db($conection, "dungeonrio");
             $sql = "SELECT * FROM jugador 

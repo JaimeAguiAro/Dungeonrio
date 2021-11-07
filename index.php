@@ -7,68 +7,40 @@
     <title>Pagina Inicial</title>
     <link rel="icon" href="img/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </head>
 <?php
     include "backend.php";
     session_start();
 ?>
 <body class=" bg-secondary">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
         function busqueda(){
             var busquedatxt = document.getElementById("busqueda").value;
-            alert(busquedatxt);
-            // $.ajax({
-            //     type: "POST",
-            //     url: 'backend.php',
-            //     data: $(this).serialize(),
-            //     success: function(response)
-            //     {
-            //         var jsonData = JSON.parse(response);
-
-            //         // user is logged in successfully in the back-end
-            //         // let's redirect
-            //         if (jsonData.success == "1")
-            //         {
-            //             location.href = 'my_profile.php';
-            //         }
-            //         else
-            //         {
-            //             alert('Invalid Credentials!');
-            //         }
-            //     }
-            // });
+            $.ajax({
+                type: "POST",
+                url: 'backend.php',
+                data: {buscar:busquedatxt},
+                success: function(response)
+                {
+                    var jsonData = JSON.parse(response);
+                    // var options;
+                    // jsonData.forEach(res => {
+                    //     options += "<option value=" + res.nombre + ">" + res.nombre + "</option>";
+                    // });
+                    // document.getElementById("opciones").innerHTML = options;
+                    $(function() {
+                        $( "#busqueda" ).autocomplete({
+                            source: jsonData,
+                        });
+                    });
+                }
+            });
         }
-        // var busqueda = document.getElementById("busqueda");
-        // busqueda.addEventListener("keypress", alert("Hello! I am an alert box!!"));
-        // $("#busqueda").addEventListener("keypress", function(){
-        //     alert("Hello! I am an alert box!!");
-            // $.ajax({
-            //     type: "POST",
-            //     url: 'backend.php',
-            //     data: $(this).serialize(),
-            //     success: function(response)
-            //     {
-            //         var jsonData = JSON.parse(response);
-
-            //         // user is logged in successfully in the back-end
-            //         // let's redirect
-            //         if (jsonData.success == "1")
-            //         {
-            //             location.href = 'my_profile.php';
-            //         }
-            //         else
-            //         {
-            //             alert('Invalid Credentials!');
-            //         }
-            //     }
-            // });
-        // });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    </script>  
     <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <!--<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">-->
             <div class="container-fluid">
                 <a class="navbar-brand p-2" href="#">
                     <img src="img/logo.png" alt="logo" width="30" height="30" class="d-inline-block align-text-top">
@@ -86,26 +58,18 @@
                     <a class="nav-link active" href="#">Link</a>
                     </li>
                 </ul>
-                <input style="width: 270px;" type="text" list="datalistOptions" onkeypress="busqueda()" id="busqueda" placeholder="Buscar Personaje o hermandad">
-                <datalist id="datalistOptions">
-                   <option value="San Francisco">
-                    <option value="New York">
-                    <option value="Seattle">
-                    <option value="Los Angeles">
-                    <option value="Chicago">
-                        
-                </datalist>
+                <input style="width: 270px;" class="form-control" type="text" onkeyup="busqueda()" name="busqueda" id="busqueda" placeholder="Buscar Personaje o hermandad">
                 <?php
                     if (isset($_SESSION['user'])) {
                         $user = $_SESSION['user'];
                         echo "<div class='dropstart ps-2'>";
                         echo "<button type='button' class='btn btn-secondary dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>$user</button>
-                        <ul class='dropdown-menu'>
-                            <li><a class='dropdown-item' href='#'>Action</a></li>
-                            <li><a class='dropdown-item' href='#'>Another action</a></li>
-                            <li><hr class='dropdown-divider'></li>
-                            <li><a class='dropdown-item' href='#'>Something else here</a></li>
-                        </ul>";
+                            <ul class='dropdown-menu'>
+                                <li><a class='dropdown-item' href='#'>Action</a></li>
+                                <li><a class='dropdown-item' href='#'>Another action</a></li>
+                                <li><hr class='dropdown-divider'></li>
+                                <li><a class='dropdown-item' href='#'>Something else here</a></li>
+                            </ul>";
                         echo "</div>";
                     }
                 ?>
@@ -116,7 +80,6 @@
                 ?>
                 </div>
             </div>
-        <!--</nav>-->
     </header>
     <main class="container mt-5 mb-3">
         <div class="container bg-light p-5 shadow">
