@@ -4,3 +4,6 @@ html,body,main{
 div.container{
     height: 100%;
 }
+div#add{
+    height: 100%;
+}

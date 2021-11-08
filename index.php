@@ -55,7 +55,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" href="#">Link</a>
+                    <a class="nav-link active" href="add.php">Añadir</a>
                     </li>
                 </ul>
                 <input style="width: 270px;" class="form-control" type="text" onkeyup="busqueda()" name="busqueda" id="busqueda" placeholder="Buscar Personaje o hermandad">

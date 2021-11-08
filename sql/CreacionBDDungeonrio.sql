@@ -26,12 +26,12 @@ CREATE TABLE personaje(ID INT AUTO_INCREMENT UNIQUE,
 							FOREIGN KEY (ID_jugador) REFERENCES jugador(ID) ON DELETE CASCADE,
 							FOREIGN KEY (ID_hermandad) REFERENCES hermandad(ID) ON DELETE CASCADE);
 CREATE TABLE grupo(ID INT AUTO_INCREMENT UNIQUE,
-						nombre VARCHAR(50),
+						nombre VARCHAR(50) UNIQUE,
 						puntuacion INT,
 						PRIMARY KEY (ID));
 CREATE TABLE mazmorra(ID INT AUTO_INCREMENT UNIQUE,
 							tiempoMaximo TIME,
-							nombre VARCHAR(50),
+							nombre VARCHAR(50) UNIQUE,
 							PRIMARY KEY (ID));
 CREATE TABLE realiza(ID_personaje INT,
 							ID_mazmorra INT,
