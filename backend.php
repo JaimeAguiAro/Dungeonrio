@@ -198,4 +198,66 @@
 
         mysqli_close($conection);
     }
+    // TODO Terminar que mire si ya se a relizado y y sumar la puntuacion
+    if (isset($_GET["nombreMazmorra"])) {
+        $nombreMazmorra = $_GET["nombreMazmorra"];
+        $nombrePjRealizada = $_GET["nombrePjRealizada"];
+        $tiempo = $_GET["tiempo"];
+        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        mysqli_select_db($conection, "dungeonrio");
+
+        $sqlIdMazmorra = "SELECT ID,tiempoMaximo FROM mazmorra WHERE nombre = '$nombreMazmorra';";
+        $resultIdMazmorra = mysqli_query($conection,$sqlIdMazmorra);
+        $rowMazmorra = mysqli_fetch_array($resultIdMazmorra);
+        $IdMazmorra = $row["ID"];
+        $TiempoMaximoMazmorra = $row["ID"];
+        mysqli_free_result($resultIdMazmorra);
+
+        $sqlIdPersonaje = "SELECT ID FROM personaje WHERE nombre = '$nombrePjRealizada';";
+        $resultIdPersonaje = mysqli_query($conection,$sqlIdPersonaje);
+        $IdPersonaje = mysqli_fetch_array($resultIdPersonaje)[0];
+        mysqli_free_result($resultIdPersonaje);
+
+        $sqlPuntuacion = "SELECT puntuacion FROM realiza WHERE ID_mazmorra = '$IdMazmorra' AND ID_personaje = '$IdPersonaje';";
+        $resultPuntuacion = mysqli_query($conection,$sqlPuntuacion);
+        $row = mysqli_fetch_array($resultPuntuacion);
+        if ($row==null) {
+            echo $TiempoMaximoMazmorra;
+            echo $IdMazmorra;
+            echo "es nulo";
+        }else {
+            echo $TiempoMaximoMazmorra;
+            echo $IdMazmorra;
+            echo "no es nulo";
+        }
+        // $IdMazmorra = mysqli_fetch_array($resultPuntuacion)[0];
+        // mysqli_free_result($resultIdMazmorra);
+
+        // $sql = "INSERT INTO personaje(nombre, clase, especializacion,ID_jugador)
+        //         VALUES('$nombrePj','$clase','$especializacion',$IdJugador);";
+        // mysqli_query($conection,$sql);
+
+        mysqli_close($conection);
+    }
+    // TODO Añadir progreso a hermandad
+
+    if (isset($_GET["usuario"])) {
+        $usuario = $_GET["usuario"];
+        $contra = $_GET["contra"];
+        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        mysqli_select_db($conection, "dungeonrio");
+
+        $jugador = "SELECT ID FROM jugador WHERE usuario = '$usuario';";
+        $resultJugador = mysqli_query($conection,$jugador);
+        if (mysqli_fetch_array($resultJugador)==null) {
+            $sql = "INSERT INTO jugador(usuario,contraseña)
+                    VALUES('$usuario','$contra');";
+            mysqli_query($conection,$sql);
+            echo "Jugador añadido";
+        }else {
+            echo "El jugador ya existe";
+        }
+        mysqli_free_result($resultJugador);
+        mysqli_close($conection);
+    }
 ?>
