@@ -202,7 +202,9 @@
     if (isset($_GET["nombreMazmorra"])) {
         $nombreMazmorra = $_GET["nombreMazmorra"];
         $nombrePjRealizada = $_GET["nombrePjRealizada"];
-        $tiempo = explode(":",$_GET["tiempo"]);
+        $tiempo = $_GET["tiempo"];
+        $tiempoA = explode(":",$_GET["tiempo"]);
+        $puntuacion = 100;
         $conection = mysqli_connect('127.0.0.1', 'root', '');
         mysqli_select_db($conection, "dungeonrio");
 
@@ -210,7 +212,8 @@
         $resultIdMazmorra = mysqli_query($conection,$sqlIdMazmorra);
         $rowMazmorra = mysqli_fetch_array($resultIdMazmorra);
         $IdMazmorra = $rowMazmorra["ID"];
-        $TiempoMaximoMazmorra = explode(":",$rowMazmorra["tiempoMaximo"]);
+        $TiempoMaximoMazmorra = $rowMazmorra["tiempoMaximo"];
+        $TiempoMaximoMazmorraA = explode(":",$rowMazmorra["tiempoMaximo"]);
         mysqli_free_result($resultIdMazmorra);
 
         $sqlIdPersonaje = "SELECT ID FROM personaje WHERE nombre = '$nombrePjRealizada';";
@@ -221,22 +224,23 @@
         $sqlPuntuacion = "SELECT puntuacion FROM realiza WHERE ID_mazmorra = '$IdMazmorra' AND ID_personaje = '$IdPersonaje';";
         $resultPuntuacion = mysqli_query($conection,$sqlPuntuacion);
         $row = mysqli_fetch_array($resultPuntuacion);
-        if ($row==null) {
-            echo $TiempoMaximoMazmorra["0"]."/horas";
-            echo $TiempoMaximoMazmorra["1"]."/minutos";
-            echo $TiempoMaximoMazmorra["2"]."/segundos";
-            echo "///".$tiempo["0"]."/horas";
-            echo $tiempo["1"]."/minutos";
-            echo $tiempo["2"]."/segundos"."///";
-            echo "es nulo";
+
+        $horas = $TiempoMaximoMazmorraA["0"] - $tiempoA["0"];
+        $minutos = $TiempoMaximoMazmorraA["1"] - $tiempoA["1"];
+        $segundos = $TiempoMaximoMazmorraA["2"] - $tiempoA["2"];
+        if ($horas < 0) {
+            $puntuacion = 0;
         }else {
-            echo $TiempoMaximoMazmorra["0"]."/horas//";
-            echo $TiempoMaximoMazmorra["1"]."/minutos//";
-            echo $TiempoMaximoMazmorra["2"]."/segundos";
-            echo "///".$tiempo["0"]."/horas//";
-            echo $tiempo["1"]."/minutos//";
-            echo $tiempo["2"]."/segundos"."///";
-            echo "no es nulo";
+            $puntuacion += $minutos + $segundos;
+        }
+        if ($row==null) {
+            $sqlAñadirRealiza = "INSERT INTO realiza(ID_personaje,ID_mazmorra,tiempo_empleado,puntuacion)
+                                VALUES($IdPersonaje,$IdMazmorra,'$tiempo',$puntuacion);";
+            mysqli_query($conection,$sqlAñadirRealiza);
+            $sqlUpdatePuntuacion = "UPDATE personaje AS p SET p.puntuacion = p.puntuacion + $puntuacion WHERE ID = $IdPersonaje";
+            mysqli_query($conection,$sqlUpdatePuntuacion);
+        }else {
+            
         }
         // $IdMazmorra = mysqli_fetch_array($resultPuntuacion)[0];
         // mysqli_free_result($resultIdMazmorra);
