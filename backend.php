@@ -239,16 +239,23 @@
             mysqli_query($conection,$sqlAñadirRealiza);
             $sqlUpdatePuntuacion = "UPDATE personaje AS p SET p.puntuacion = p.puntuacion + $puntuacion WHERE ID = $IdPersonaje";
             mysqli_query($conection,$sqlUpdatePuntuacion);
+            echo "Mazmorra añadida puntuacion:".$puntuacion;
         }else {
-            
+            $puntuacionActual = $row["puntuacion"];
+            $diferencia = $puntuacion - $puntuacionActual;
+            if ($diferencia >= 0) {
+                $diferencia - $diferencia;
+                echo "Mazmorra añadida puntuacion:".$puntuacion;
+                $sqlUpdatePuntuacionR = "UPDATE realiza AS r SET r.puntuacion = $puntuacion WHERE ID_personaje = $IdPersonaje AND ID_mazmorra = $IdMazmorra";
+                mysqli_query($conection,$sqlUpdatePuntuacionR);
+                $sqlUpdatePuntuacionP = "UPDATE personaje AS p SET p.puntuacion = p.puntuacion + $diferencia WHERE ID = $IdPersonaje";
+                mysqli_query($conection,$sqlUpdatePuntuacionP);
+            }else {
+                echo "Mazmorra no añadida por tener menor o igual puntuacion:".$puntuacion." actual:".$puntuacionActual;
+            }
         }
-        // $IdMazmorra = mysqli_fetch_array($resultPuntuacion)[0];
-        // mysqli_free_result($resultIdMazmorra);
 
-        // $sql = "INSERT INTO personaje(nombre, clase, especializacion,ID_jugador)
-        //         VALUES('$nombrePj','$clase','$especializacion',$IdJugador);";
-        // mysqli_query($conection,$sql);
-
+        mysqli_free_result($resultPuntuacion);
         mysqli_close($conection);
     }
     // TODO Añadir progreso a hermandad

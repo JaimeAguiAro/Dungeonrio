@@ -182,9 +182,9 @@
                                 type: "GET",
                                 url: 'backend.php',
                                 data: {nombreMazmorra:nombreMazmorra,nombrePjRealizada:nombrePjRealizada,tiempo:tiempo},
-                                success: function()
+                                success: function(response)
                                 {
-                                    alert("Mazmorra realizada añadida");
+                                    alert(response);
                                 },
                                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                                     alert("Status: " + textStatus);
