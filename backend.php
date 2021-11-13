@@ -198,19 +198,19 @@
 
         mysqli_close($conection);
     }
-    // TODO Terminar que mire si ya se a relizado y y sumar la puntuacion
+    // TODO Terminar que mire si ya se a relizado y sumar la puntuacion
     if (isset($_GET["nombreMazmorra"])) {
         $nombreMazmorra = $_GET["nombreMazmorra"];
         $nombrePjRealizada = $_GET["nombrePjRealizada"];
-        $tiempo = $_GET["tiempo"];
+        $tiempo = explode(":",$_GET["tiempo"]);
         $conection = mysqli_connect('127.0.0.1', 'root', '');
         mysqli_select_db($conection, "dungeonrio");
 
         $sqlIdMazmorra = "SELECT ID,tiempoMaximo FROM mazmorra WHERE nombre = '$nombreMazmorra';";
         $resultIdMazmorra = mysqli_query($conection,$sqlIdMazmorra);
         $rowMazmorra = mysqli_fetch_array($resultIdMazmorra);
-        $IdMazmorra = $row["ID"];
-        $TiempoMaximoMazmorra = $row["ID"];
+        $IdMazmorra = $rowMazmorra["ID"];
+        $TiempoMaximoMazmorra = explode(":",$rowMazmorra["tiempoMaximo"]);
         mysqli_free_result($resultIdMazmorra);
 
         $sqlIdPersonaje = "SELECT ID FROM personaje WHERE nombre = '$nombrePjRealizada';";
@@ -222,12 +222,20 @@
         $resultPuntuacion = mysqli_query($conection,$sqlPuntuacion);
         $row = mysqli_fetch_array($resultPuntuacion);
         if ($row==null) {
-            echo $TiempoMaximoMazmorra;
-            echo $IdMazmorra;
+            echo $TiempoMaximoMazmorra["0"]."/horas";
+            echo $TiempoMaximoMazmorra["1"]."/minutos";
+            echo $TiempoMaximoMazmorra["2"]."/segundos";
+            echo "///".$tiempo["0"]."/horas";
+            echo $tiempo["1"]."/minutos";
+            echo $tiempo["2"]."/segundos"."///";
             echo "es nulo";
         }else {
-            echo $TiempoMaximoMazmorra;
-            echo $IdMazmorra;
+            echo $TiempoMaximoMazmorra["0"]."/horas//";
+            echo $TiempoMaximoMazmorra["1"]."/minutos//";
+            echo $TiempoMaximoMazmorra["2"]."/segundos";
+            echo "///".$tiempo["0"]."/horas//";
+            echo $tiempo["1"]."/minutos//";
+            echo $tiempo["2"]."/segundos"."///";
             echo "no es nulo";
         }
         // $IdMazmorra = mysqli_fetch_array($resultPuntuacion)[0];
