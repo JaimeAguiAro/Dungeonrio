@@ -60,8 +60,8 @@
     function GetHermandadesProgreso(){
         $conection = mysqli_connect('127.0.0.1', 'root', '');
         mysqli_select_db($conection, "dungeonrio");
-        $sql = "SELECT h.nombre, p.jefeMatado 
-                FROM progreso AS p INNER JOIN hermandad AS h ON p.ID_hermandad = h.ID LIMIT 5";
+        $sql = "SELECT h.nombre, p.jefeMatado , fecha
+                FROM progreso AS p INNER JOIN hermandad AS h ON p.ID_hermandad = h.ID ORDER BY fecha DESC LIMIT 5";
         $result = mysqli_query($conection,$sql);
         echo "<table class='table table-dark table-striped'>";
         echo "<tr class='text-center'><th scope='col'>Nombre</th><th scope='col'>Jefe Matado</th></tr>";
@@ -258,8 +258,32 @@
         mysqli_free_result($resultPuntuacion);
         mysqli_close($conection);
     }
-    // TODO Añadir progreso a hermandad
+    if (isset($_GET["hermandadProgreso"])) {
+        $hermandadProgreso = $_GET["hermandadProgreso"];
+        $jefe = $_GET["jefe"];
+        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        mysqli_select_db($conection, "dungeonrio");
 
+        $hermandad = "SELECT ID FROM hermandad WHERE nombre = '$hermandadProgreso';";
+        $resultIDHermandad = mysqli_query($conection,$hermandad);
+        $IDHermandad = mysqli_fetch_array($resultIDHermandad)[0];
+        mysqli_free_result($resultIDHermandad);
+
+        $progreso = "SELECT * FROM progreso WHERE ID_hermandad = $IDHermandad AND jefeMatado = $jefe;";
+        $resultProgreso = mysqli_query($conection,$progreso);
+        if (mysqli_fetch_array($resultProgreso)==null) {
+            // echo "$progreso";
+            $sql = "INSERT INTO progreso(ID_hermandad,jefeMatado)
+                    VALUES('$IDHermandad','$jefe');";
+            mysqli_query($conection,$sql);
+            echo "Progreso añadido";
+        }else {
+            // echo "$progreso";
+            echo $hermandadProgreso." ya ha matado al jefe: ".$jefe;
+        }
+        mysqli_free_result($resultProgreso);
+        mysqli_close($conection);
+    }
     if (isset($_GET["usuario"])) {
         $usuario = $_GET["usuario"];
         $contra = $_GET["contra"];

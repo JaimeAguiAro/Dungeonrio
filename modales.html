@@ -198,8 +198,49 @@
         </div>
     </div>
 </div> 
-<!-- TODO Añadir progreso -->
-
+<div class="modal fade" tabindex="-1" aria-labelledby="progresoModalLabel" aria-hidden="true" id="addProgreso">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="progresoModalLabel">Añadir Progreso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="hermandadProgreso" class="col-form-label">Hermandad:</label>
+                    <input type="text" id="hermandadProgreso" name="hermandadProgreso" class="form-control">
+                    <label for="jefe">Jefe(1-10):</label>
+                    <input type="number" id="jefe" name="jefe" min="1" max="10">
+                    <button class="btn btn-primary mt-2" onclick="añadirProgreso()">Añadir</button>
+                    <script type="text/javascript">
+                        function añadirProgreso(){
+                            var hermandadProgreso = document.getElementById("hermandadProgreso").value;
+                            var jefe = document.getElementById("jefe").value;
+                            if (jefe < 10 && jefe > 1) {
+                                $.ajax({
+                                type: "GET",
+                                url: 'backend.php',
+                                data: {hermandadProgreso:hermandadProgreso,jefe:jefe},
+                                success: function(response)
+                                {
+                                    alert(response);
+                                },
+                                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                                    alert("Status: " + textStatus);
+                                    alert("Error: " + errorThrown); 
+                                }
+                            });
+                            }else{
+                                alert("El numero debe estar entre 1 y 10");
+                            }
+                            
+                        }
+                    </script>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" tabindex="-1" aria-labelledby="jugadorModalLabel" aria-hidden="true" id="addJugador">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">

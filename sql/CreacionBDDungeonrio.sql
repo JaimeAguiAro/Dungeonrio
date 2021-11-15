@@ -44,7 +44,8 @@ CREATE TABLE pertenece(ID_grupo INT,
 							FOREIGN KEY (ID_grupo) REFERENCES grupo(ID) ON DELETE CASCADE,
 							FOREIGN KEY (ID_personaje) REFERENCES personaje(ID) ON DELETE CASCADE);
 CREATE TABLE progreso(ID_hermandad INT,
-							jefeMatado INT);
+							jefeMatado INT,
+							fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Andgrod","Andgrod");

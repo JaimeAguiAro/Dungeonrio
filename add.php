@@ -91,7 +91,9 @@
                                             <h5 class="card-title">Añadir Progreso</h5>
                                         </div>
                                         <div class="card-body">
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProgreso">
+                                                AÑADIR
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
