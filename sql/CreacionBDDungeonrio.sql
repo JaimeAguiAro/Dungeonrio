@@ -7,7 +7,6 @@ CREATE TABLE hermandad(ID INT AUTO_INCREMENT UNIQUE,
 							nombre VARCHAR(50) UNIQUE,
 							logo VARCHAR(20),
 							descripcion VARCHAR(200),
-							avance INT,
 							PRIMARY KEY (ID));
 CREATE TABLE jugador(ID INT AUTO_INCREMENT UNIQUE,
 							usuario VARCHAR(20) UNIQUE,
@@ -62,10 +61,10 @@ VALUES("Pachamama","Pachamama");
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Icadi","Icadi");
 
-INSERT INTO hermandad(nombre,avance)
-VALUES("La Cruzada Escarlata",10);
-INSERT INTO hermandad(nombre,avance)
-VALUES("El Imperio Desconocido",8);
+INSERT INTO hermandad(nombre)
+VALUES("La Cruzada Escarlata");
+INSERT INTO hermandad(nombre)
+VALUES("El Imperio Desconocido");
 
 INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
 VALUES("Andgrod","Paladin","Tank",TRUE,1,1,213);
