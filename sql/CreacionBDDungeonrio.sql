@@ -7,6 +7,7 @@ CREATE TABLE hermandad(ID INT AUTO_INCREMENT UNIQUE,
 							nombre VARCHAR(50) UNIQUE,
 							logo VARCHAR(20),
 							descripcion VARCHAR(200),
+							avance INT,
 							PRIMARY KEY (ID));
 CREATE TABLE jugador(ID INT AUTO_INCREMENT UNIQUE,
 							usuario VARCHAR(20) UNIQUE,

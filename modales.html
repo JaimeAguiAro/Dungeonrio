@@ -74,6 +74,11 @@
                 <div class="mb-3">
                     <label for="nombreHermandad" class="col-form-label">Nombre:</label>
                     <input type="text" id="nombreHermandad" name="nombreHermandad" class="form-control">
+                    <label for="logo" class="col-form-label">Logo:</label>
+                    <select class="form-select" id="logo" name="logo">
+                        <option selected hidden></option>
+                        <option value="-">Por Defecto</option>
+                    </select>
                     <button class="btn btn-primary mt-2" onclick="añadirHermandad()">Añadir</button>
                     <script type="text/javascript">
                         function añadirHermandad(){

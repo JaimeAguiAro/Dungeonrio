@@ -42,7 +42,7 @@
     function GetTopHermandades(){
         $conection = mysqli_connect('127.0.0.1', 'root', '');
         mysqli_select_db($conection, "dungeonrio");
-        $sql = "SELECT nombre,avance 
+        $sql = "SELECT nombre,avance
                 FROM hermandad ORDER BY avance DESC LIMIT 5";
         $result = mysqli_query($conection,$sql);
         echo "<table class='table table-dark table-striped'>";
@@ -273,9 +273,11 @@
         $resultProgreso = mysqli_query($conection,$progreso);
         if (mysqli_fetch_array($resultProgreso)==null) {
             // echo "$progreso";
-            $sql = "INSERT INTO progreso(ID_hermandad,jefeMatado)
+            $sqlProgreso = "INSERT INTO progreso(ID_hermandad,jefeMatado)
                     VALUES('$IDHermandad','$jefe');";
-            mysqli_query($conection,$sql);
+            mysqli_query($conection,$sqlProgreso);
+            $sqlUpdateHermandad = "UPDATE hermandad AS h SET h.avance = h.avance + 1 WHERE ID = $IDHermandad";
+            mysqli_query($conection,$sqlUpdateHermandad);
             echo "Progreso añadido";
         }else {
             // echo "$progreso";
