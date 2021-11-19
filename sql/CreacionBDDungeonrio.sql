@@ -61,11 +61,13 @@ INSERT INTO jugador(usuario,contraseña)
 VALUES("Pachamama","Pachamama");
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Icadi","Icadi");
+INSERT INTO jugador(usuario,contraseña)
+VALUES("Admin","Admin");
 
-INSERT INTO hermandad(nombre)
-VALUES("La Cruzada Escarlata");
-INSERT INTO hermandad(nombre)
-VALUES("El Imperio Desconocido");
+INSERT INTO hermandad(nombre,avance)
+VALUES("La Cruzada Escarlata",10);
+INSERT INTO hermandad(nombre,avance)
+VALUES("El Imperio Desconocido",8);
 
 INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
 VALUES("Andgrod","Paladin","Tank",TRUE,1,1,213);
