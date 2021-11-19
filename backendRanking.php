@@ -2,9 +2,8 @@
     $conection = mysqli_connect('127.0.0.1', 'root', '');
     mysqli_select_db($conection, "dungeonrio");
 
-    $sql = "SELECT nombre,clase,puntuacion 
-            FROM personaje
-            ORDER BY puntuacion DESC";
+    $sql = "SELECT ROW_NUMBER() OVER(ORDER BY puntuacion DESC) AS puesto,nombre,clase,puntuacion
+            FROM personaje";
     $result = mysqli_query($conection,$sql);
 
     if (!$result) {

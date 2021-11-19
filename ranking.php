@@ -19,6 +19,7 @@
                 "ajax": "backendRanking.php",
                 "method": "POST",
                 "columns": [
+                    { "data": "puesto" },
                     { "data": "nombre" },
                     { "data": "clase" },
                     { "data": "puntuacion" }
@@ -42,6 +43,7 @@
                 <table id="ranking" class="table table-striped table-sm">
                     <thead>
                         <tr>
+                            <th>Puesto</th>
                             <th>Nombre</th>
                             <th>Clase</th>
                             <th>Puntuacion</th>
