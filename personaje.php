@@ -6,54 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ranking</title>
     <link rel="icon" href="img/logo.png">
-    <link rel="stylesheet" href="estilos/comun.css">
+    <!-- <link rel="stylesheet" href="estilos/comun.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $('#ranking').DataTable();
-        } );
-    </script>
 </head>
 <body class="bg-secondary">
     <?php
+        include "backend.php";
         session_start();
         include "header.php";
     ?>
     <main class="container mt-5 mb-3">
-        <div class="container bg-light p-5 shadow">
-            <table id="ranking" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="bg-light p-5 shadow">
+            <div class="row">
+                <div class="row bg-dark p-2 col-8 h-50">
+                    <div class="col-2">
+                        <img class="img-thumbnail" src="img/fotoPersonaje.png" alt="fotoPersonaje">
+                    </div>
+                    <div class="col row m-2">
+                        <p class="d-flex align-items-center col row text-center">
+                            <span class="border bg-light p-2 fw-bold col m-2">Andgrod</span>
+                            <span class="border bg-light p-2 fw-bold col m-2">Paladin</span>
+                            <span class="border bg-light p-2 fw-bold col m-2">Tank</span>
+                            <span class="border bg-light p-2 fw-bold col m-2">234</span>
+                        </p>
+                        
+                    </div>
+                </div>
+                <div class="col border bg-light p-2">
+                    <p class="col border bg-secondary fw-bold p-2 text-light">Descripcion</p>
+                    <span>
+                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
+                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
+                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
+                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
+                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
+                    </span>
+                </div>
+            </div>
+            <div class="card shadow mt-4">
+                <h1 class="card-header">Mazmorras Realizadas</h1>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                    <?php
+                    getPersonajeMazmorras("Andgrod");
+                    ?>
+                    </blockquote>
+                </div>
+            </div>
         </div>
     </main>
     <?php

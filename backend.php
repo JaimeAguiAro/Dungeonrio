@@ -75,6 +75,188 @@
         mysqli_free_result($result);
         mysqli_close($conection);
     }
+    function getPersonaje($pj){
+        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        mysqli_select_db($conection, "dungeonrio");
+        $sql = "SELECT h.nombre, p.jefeMatado , fecha
+                FROM progreso AS p INNER JOIN hermandad AS h ON p.ID_hermandad = h.ID ORDER BY fecha DESC LIMIT 5";
+        $result = mysqli_query($conection,$sql);
+        echo "<table class='table table-dark table-striped'>";
+        echo "<tr class='text-center'><th scope='col'>Nombre</th><th scope='col'>Jefe Matado</th></tr>";
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<tr class='text-center'>";
+            echo "<td scope='row'>".$row["nombre"]."</td>";
+            echo "<td>".$row["jefeMatado"]."</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+        mysqli_free_result($result);
+        mysqli_close($conection);
+    }
+    function getPersonajeMazmorras($pj){
+        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        mysqli_select_db($conection, "dungeonrio");
+        $mazmorras = ["Reposo de los Reyes","Asalto a Boralus","Fuerte Libre","Altar de la Tormenta","Veta Madre","Catacumbas putrefactas"];
+
+        $sqlIdJugador = "SELECT ID FROM personaje WHERE nombre = '$pj';";
+        $resultIdJugador = mysqli_query($conection,$sqlIdJugador);
+        $IdJugador = mysqli_fetch_array($resultIdJugador)[0];
+        mysqli_free_result($resultIdJugador);
+
+        $sql = "SELECT m.nombre,r.tiempo_empleado,r.puntuacion 
+                FROM realiza AS r INNER JOIN mazmorra AS m ON r.ID_mazmorra = m.ID 
+                WHERE r.ID_personaje = $IdJugador ORDER BY m.ID;";
+        $result = mysqli_query($conection,$sql);
+        echo "<table class='table table-dark table-striped'>";
+        echo "<tr class='text-center'><th scope='col'>Mazmorra</th><th scope='col'>Tiempo Empleado</th><th scope='col'>Puntuacion</th></tr>";
+        switch (mysqli_num_rows($result)) {
+            case 0:
+                echo "<tr class='text-center'>";
+                echo "<td scope='row'>Reposo de los Reyes</td>";
+                echo "<td>----</td>";
+                echo "<td>----</td>";
+                echo "</tr>";
+                echo "<tr class='text-center'>";
+                echo "<td scope='row'>Asalto a Boralus</td>";
+                echo "<td>----</td>";
+                echo "<td>----</td>";
+                echo "</tr>";
+                echo "<tr class='text-center'>";
+                echo "<td scope='row'>Fuerte Libre</td>";
+                echo "<td>----</td>";
+                echo "<td>----</td>";
+                echo "</tr>";
+                echo "<tr class='text-center'>";
+                echo "<td scope='row'>Altar de la Tormenta</td>";
+                echo "<td>----</td>";
+                echo "<td>----</td>";
+                echo "</tr>";
+                echo "<tr class='text-center'>";
+                echo "<td scope='row'>Veta Madre</td>";
+                echo "<td>----</td>";
+                echo "<td>----</td>";
+                echo "</tr>";
+                echo "<tr class='text-center'>";
+                echo "<td scope='row'>Catacumbas putrefactas</td>";
+                echo "<td>----</td>";
+                echo "<td>----</td>";
+                echo "</tr>";
+            break;
+            case 1:
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr class='text-center'>";
+                    if (($key = array_search($row["nombre"], $mazmorras)) !== false) {
+                        unset($mazmorras[$key]);
+                    }
+                    echo "<td scope='row'>".$row["nombre"]."</td>";
+                    echo "<td>".$row["tiempo_empleado"]."</td>";
+                    echo "<td>".$row["puntuacion"]."</td>";
+                    echo "</tr>";
+                }
+                foreach ($mazmorras as $mazmorra) {
+                    echo "</tr>";
+                    echo "<tr class='text-center'>";
+                    echo "<td scope='row'>$mazmorra</td>";
+                    echo "<td>----</td>";
+                    echo "<td>----</td>";
+                    echo "</tr>";
+                }
+            break;
+            case 2:
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr class='text-center'>";
+                    if (($key = array_search($row["nombre"], $mazmorras)) !== false) {
+                        unset($mazmorras[$key]);
+                    }
+                    echo "<td scope='row'>".$row["nombre"]."</td>";
+                    echo "<td>".$row["tiempo_empleado"]."</td>";
+                    echo "<td>".$row["puntuacion"]."</td>";
+                    echo "</tr>";
+                }
+                foreach ($mazmorras as $mazmorra) {
+                    echo "</tr>";
+                    echo "<tr class='text-center'>";
+                    echo "<td scope='row'>$mazmorra</td>";
+                    echo "<td>----</td>";
+                    echo "<td>----</td>";
+                    echo "</tr>";
+                }
+            break;
+            case 3:
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr class='text-center'>";
+                    if (($key = array_search($row["nombre"], $mazmorras)) !== false) {
+                        unset($mazmorras[$key]);
+                    }
+                    echo "<td scope='row'>".$row["nombre"]."</td>";
+                    echo "<td>".$row["tiempo_empleado"]."</td>";
+                    echo "<td>".$row["puntuacion"]."</td>";
+                    echo "</tr>";
+                }
+                foreach ($mazmorras as $mazmorra) {
+                    echo "</tr>";
+                    echo "<tr class='text-center'>";
+                    echo "<td scope='row'>$mazmorra</td>";
+                    echo "<td>----</td>";
+                    echo "<td>----</td>";
+                    echo "</tr>";
+                }
+            break;
+            case 4:
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr class='text-center'>";
+                    if (($key = array_search($row["nombre"], $mazmorras)) !== false) {
+                        unset($mazmorras[$key]);
+                    }
+                    echo "<td scope='row'>".$row["nombre"]."</td>";
+                    echo "<td>".$row["tiempo_empleado"]."</td>";
+                    echo "<td>".$row["puntuacion"]."</td>";
+                    echo "</tr>";
+                }
+                foreach ($mazmorras as $mazmorra) {
+                    echo "</tr>";
+                    echo "<tr class='text-center'>";
+                    echo "<td scope='row'>$mazmorra</td>";
+                    echo "<td>----</td>";
+                    echo "<td>----</td>";
+                    echo "</tr>";
+                }
+            break;
+            case 5:
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr class='text-center'>";
+                    if (($key = array_search($row["nombre"], $mazmorras)) !== false) {
+                        unset($mazmorras[$key]);
+                    }
+                    echo "<td scope='row'>".$row["nombre"]."</td>";
+                    echo "<td>".$row["tiempo_empleado"]."</td>";
+                    echo "<td>".$row["puntuacion"]."</td>";
+                    echo "</tr>";
+                }
+                foreach ($mazmorras as $mazmorra) {
+                    echo "</tr>";
+                    echo "<tr class='text-center'>";
+                    echo "<td scope='row'>$mazmorra</td>";
+                    echo "<td>----</td>";
+                    echo "<td>----</td>";
+                    echo "</tr>";
+                }
+            break;
+            default:
+                while ($row = mysqli_fetch_array($result)) {
+                echo "<tr class='text-center'>";
+                echo "<td scope='row'>".$row["nombre"]."</td>";
+                echo "<td>".$row["tiempo_empleado"]."</td>";
+                echo "<td>".$row["puntuacion"]."</td>";
+                echo "</tr>";
+                }
+            break;
+        }
+        
+        echo "</table>";
+        mysqli_free_result($result);
+        mysqli_close($conection);
+    }
 
     if (isset($_POST["buscar"])) {
         $nombre = $_POST["buscar"];

@@ -96,6 +96,14 @@ INSERT INTO mazmorra(nombre,tiempoMaximo)
 VALUES("Reposo de los Reyes","0:40:0");
 INSERT INTO mazmorra(nombre,tiempoMaximo)
 VALUES("Asalto a Boralus","0:32:0");
+INSERT INTO mazmorra(nombre,tiempoMaximo)
+VALUES("Fuerte Libre","0:39:0");
+INSERT INTO mazmorra(nombre,tiempoMaximo)
+VALUES("Altar de la Tormenta","0:34:0");
+INSERT INTO mazmorra(nombre,tiempoMaximo)
+VALUES("Veta Madre","0:37:0");
+INSERT INTO mazmorra(nombre,tiempoMaximo)
+VALUES("Catacumbas putrefactas","0:38:0");
 
 INSERT INTO realiza(ID_personaje,ID_mazmorra,tiempo_empleado,puntuacion)
 VALUES(1,1,"0:30:0",123);
