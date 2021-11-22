@@ -35,14 +35,10 @@
                         
                     </div>
                 </div>
-                <div class="col border bg-light p-2">
+                <div class="col border bg-light p-2" style="min-height: 400px;">
                     <p class="col border bg-secondary fw-bold p-2 text-light">Descripcion</p>
                     <span>
-                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
-                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
-                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
-                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
-                        hwsdbfhse dbifbweo cebwiofbqweio fbweiofqw eyuiofbwery u8iofberofbqwer uiofberuiof rqeuiofqeru iofgqeruioqerb
+                        Este Jugador lo hizo tan bien en la anterior mazmorra que lo han invitado a la siguiente y luego pondra una descripcion
                     </span>
                 </div>
             </div>

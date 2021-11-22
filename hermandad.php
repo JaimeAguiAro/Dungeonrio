@@ -19,41 +19,42 @@
 </head>
 <body class="bg-secondary">
     <?php
+        include "backend.php";
         session_start();
         include "header.php";
     ?>
     <main class="container mt-5 mb-3">
-        <div class="container bg-light p-5 shadow">
-            <table id="ranking" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="bg-light p-5 shadow">
+            <div class="row">
+                <div class="row bg-dark p-2 col-8 h-50">
+                    <div class="col-2">
+                        <img class="img-thumbnail" src="img/logoHermandad.jpg" alt="fotoHermandad">
+                    </div>
+                    <div class="col row m-2">
+                        <p class="d-flex align-items-center col row text-center">
+                            <span class="border bg-light p-2 fw-bold col m-2">La Cruzada Escarlata</span>
+                            <span class="border bg-light p-2 fw-bold col m-2">10</span>
+                        </p>
+                        
+                    </div>
+                </div>
+                <div class="col border bg-light p-2" style="min-height: 400px;">
+                    <p class="col border bg-secondary fw-bold p-2 text-light">Descripcion</p>
+                    <span>
+                        Esta hermandad esta reunidad en la posada despues de raid, mañana escribiran una
+                    </span>
+                </div>
+            </div>
+            <div class="card shadow mt-4">
+                <h1 class="card-header">Miembros</h1>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                    <?php
+                    getHermandadMiembros("La Cruzada Escarlata");
+                    ?>
+                    </blockquote>
+                </div>
+            </div>
         </div>
     </main>
     <?php
