@@ -41,7 +41,7 @@
                 <div class="col border bg-light p-2" style="min-height: 400px;">
                     <p class="col border bg-secondary fw-bold p-2 text-light">Descripcion</p>
                     <span>
-                        Esta hermandad esta reunidad en la posada despues de raid, mañana escribiran una
+                        Esta hermandad esta reunidad en la posada despues de raid, mañana escribiran una Descripcion
                     </span>
                 </div>
             </div>

@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="estilos/comun.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $('#ranking').DataTable();
@@ -19,41 +19,64 @@
 </head>
 <body class="bg-secondary">
     <?php
+        include "backendConfiguracion.php";
         session_start();
         include "header.php";
     ?>
     <main class="container mt-5 mb-3">
-        <div class="container bg-light p-5 shadow">
-            <table id="ranking" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="bg-light p-5 shadow">
+            <div class="container" style="width: 50%;">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jugador</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Personaje Favorito</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="border p-3 bg-body">
+                            <form method="POST" action="backendConfiguracion.php">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" value="Nombre">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="descripcion">Descripcion</label><br>
+                                    <textarea class="form-cotrol" id="descripcion" name="descripcion" placeholder="Leave a comment here" style="resize: none; height: 150px;min-width: 25%;"></textarea>
+                                </div>
+                                <button type="submit" name="datos" class="btn btn-primary">Actualizar</button>
+                            </form>
+                            <p class="m-4">
+                                <a class="btn btn-dark" data-bs-toggle="collapse" href="#contraseñaCollapse" role="button" aria-expanded="false" aria-controls="contraseñaCollapse">Cambiar Contraseña</a>
+                            </p>
+                                <div class="collapse" id="contraseñaCollapse" style="width: 50%;">
+                                    <div class="card card-body">
+                                        <form action="backendConfiguracion.php" method="POST">
+                                            <div class="mb-3">
+                                                <label for="pass" class="form-label">Contraseña</label>
+                                                <input type="password" class="form-control" name="pass" id="pass">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
+                                                <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
+                                            </div>
+                                            <button type="submit" name="contra" class="btn btn-dark">Cambiar Contraseña</button>
+                                        </form>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="border p-3 bg-body" style="min-height: 50vh;">
+                            <div class="alert alert-warning" role="alert">
+                                Adquiera una version mejor para poder modificar su personaje favorito
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <?php
