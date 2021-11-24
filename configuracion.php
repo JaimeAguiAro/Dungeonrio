@@ -11,11 +11,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $('#ranking').DataTable();
-        } );
-    </script>
 </head>
 <body class="bg-secondary">
     <?php
@@ -25,7 +20,7 @@
     ?>
     <main class="container mt-5 mb-3">
         <div class="bg-light p-5 shadow">
-            <div class="container" style="width: 50%;">
+            <div class="container" style="min-width: 50%;">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Jugador</button>
@@ -37,6 +32,12 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="border p-3 bg-body">
+                            <?php 
+                                if (isset($_SESSION["error"])) {
+                                    echo '<p class="text-danger border border-danger p-2">'.$_SESSION["error"].'</p>';
+                                    unset($_SESSION["error"]);
+                                }
+                            ?>
                             <form method="POST" action="backendConfiguracion.php">
                                 <div class="mb-3">
                                     <label for="nombre" class="form-label">Nombre</label>
@@ -44,32 +45,32 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="descripcion">Descripcion</label><br>
-                                    <textarea class="form-cotrol" id="descripcion" name="descripcion" placeholder="Leave a comment here" style="resize: none; height: 150px;min-width: 25%;"></textarea>
+                                    <textarea class="form-cotrol" id="descripcion" name="descripcion" placeholder="Leave a comment here" style="resize: none; height: 150px;min-width: 50%;"></textarea>
                                 </div>
-                                <button type="submit" name="datos" class="btn btn-primary">Actualizar</button>
+                                <button type="submit" name="datos" value="1" class="btn btn-primary">Actualizar</button>
                             </form>
                             <p class="m-4">
                                 <a class="btn btn-dark" data-bs-toggle="collapse" href="#contraseñaCollapse" role="button" aria-expanded="false" aria-controls="contraseñaCollapse">Cambiar Contraseña</a>
                             </p>
-                                <div class="collapse" id="contraseñaCollapse" style="width: 50%;">
-                                    <div class="card card-body">
-                                        <form action="backendConfiguracion.php" method="POST">
-                                            <div class="mb-3">
-                                                <label for="pass" class="form-label">Contraseña</label>
-                                                <input type="password" class="form-control" name="pass" id="pass">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
-                                                <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
-                                            </div>
-                                            <button type="submit" name="contra" class="btn btn-dark">Cambiar Contraseña</button>
-                                        </form>
-                                    </div>
+                            <div class="collapse" id="contraseñaCollapse">
+                                <div class="card card-body" style="min-width: 50%;">
+                                    <form action="backendConfiguracion.php" method="POST">
+                                        <div class="mb-3">
+                                            <label for="pass" class="form-label">Contraseña</label>
+                                            <input type="password" class="form-control" name="pass" id="pass">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
+                                            <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
+                                        </div>
+                                        <button type="submit" name="contra" value="1" class="btn btn-dark">Cambiar Contraseña</button>
+                                    </form>
                                 </div>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="border p-3 bg-body" style="min-height: 50vh;">
+                        <div class="border p-3 bg-body">
                             <div class="alert alert-warning" role="alert">
                                 Adquiera una version mejor para poder modificar su personaje favorito
                             </div>
