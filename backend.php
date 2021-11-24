@@ -168,7 +168,6 @@
         $result = mysqli_query($conection,$sql);
         $respuesta = array();
         while ($row = mysqli_fetch_array($result)) {
-            // echo json_encode($row);
             if ($row[0] == "personaje") {
                 $temporal = array("tipo"=>"personaje","id"=>$row["id"],"nombre"=>$row["nombre"]);
                 $respuesta[] = $temporal;

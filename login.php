@@ -22,8 +22,14 @@
                     WHERE usuario = '$user' AND contraseña = '$contra'";
             $result = mysqli_query($conection,$sql);
             if (mysqli_num_rows($result)==1) {
-                echo "funciona";
                 $loged = true;
+                $row = mysqli_fetch_array($result);
+                $id = $row["ID"];
+                if ($row["usuario"] == "Admin") {
+                    $_SESSION["admin"] = true;
+                }else {
+                    unset($_SESSION["admin"]);
+                }
             }else {
                 $error = true;
             }
@@ -31,6 +37,7 @@
                 mysqli_free_result($result);
                 mysqli_close($conection);
                 $_SESSION['user'] = $user;
+                $_SESSION['id'] = $id;
                 header("Location: http://localhost/Dungeonrio/");
                 exit();
             }else {

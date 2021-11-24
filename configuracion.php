@@ -47,7 +47,7 @@
                                     <label class="form-label" for="descripcion">Descripcion</label><br>
                                     <textarea class="form-cotrol" id="descripcion" name="descripcion" placeholder="Leave a comment here" style="resize: none; height: 150px;min-width: 50%;"></textarea>
                                 </div>
-                                <button type="submit" name="datos" value="1" class="btn btn-primary">Actualizar</button>
+                                <button type="submit" name="datos" value="<?php echo $_SESSION["id"] ?>" class="btn btn-primary">Actualizar</button>
                             </form>
                             <p class="m-4">
                                 <a class="btn btn-dark" data-bs-toggle="collapse" href="#contraseñaCollapse" role="button" aria-expanded="false" aria-controls="contraseñaCollapse">Cambiar Contraseña</a>
@@ -63,7 +63,7 @@
                                             <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
                                             <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
                                         </div>
-                                        <button type="submit" name="contra" value="1" class="btn btn-dark">Cambiar Contraseña</button>
+                                        <button type="submit" name="contra" value="<?php echo $_SESSION["id"] ?>" class="btn btn-dark">Cambiar Contraseña</button>
                                     </form>
                                 </div>
                             </div>

@@ -13,6 +13,7 @@ CREATE TABLE jugador(ID INT AUTO_INCREMENT UNIQUE,
 							usuario VARCHAR(20) UNIQUE,
 							contraseña VARCHAR(20),
 							descripcion VARCHAR(200),
+							ID_hermandad INT,
 							PRIMARY KEY (ID));
 CREATE TABLE personaje(ID INT AUTO_INCREMENT UNIQUE,
 							nombre VARCHAR(20) UNIQUE,
@@ -47,14 +48,14 @@ CREATE TABLE progreso(ID_hermandad INT,
 							jefeMatado INT,
 							fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
-INSERT INTO jugador(usuario,contraseña)
-VALUES("Andgrod","Andgrod");
+INSERT INTO jugador(usuario,contraseña,ID_hermandad)
+VALUES("Andgrod","Andgrod",1);
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Ichirai","Ichirai");
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Cerhor","Cerhor");
-INSERT INTO jugador(usuario,contraseña)
-VALUES("Apse","Apse");
+INSERT INTO jugador(usuario,contraseña,ID_hermandad)
+VALUES("Apse","Apse",2);
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Ace","Ace");
 INSERT INTO jugador(usuario,contraseña)

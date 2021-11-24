@@ -19,9 +19,8 @@
                 <input style="width: 270px;" class="form-control" type="text" onkeyup="busqueda()" name="busqueda" id="busqueda" placeholder="Buscar Personaje o hermandad">
                 <?php
                     if (isset($_SESSION['user'])) {
-                        $user = $_SESSION['user'];
                         echo "<div class='dropstart ps-2'>";
-                        echo "<button type='button' class='btn btn-secondary dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>$user</button>
+                        echo "<button type='button' class='btn btn-secondary dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>".$_SESSION["user"]."</button>
                             <ul class='dropdown-menu'>
                                 <li><a class='dropdown-item' href='#'>Action</a></li>
                                 <li><a class='dropdown-item' href='#'>Another action</a></li>

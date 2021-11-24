@@ -9,6 +9,8 @@ if (isset($_POST["datos"])) {
         $sqlUpdateJugador = "UPDATE jugador SET usuario = '$nombre' WHERE ID = $jugador;";
         mysqli_query($conection,$sqlUpdateJugador);
         mysqli_close($conection);
+        session_start();
+        $_SESSION["user"] = $nombre;
     }
     if ($_POST["descripcion"] != "") {
         $descripcion = $_POST["descripcion"];
