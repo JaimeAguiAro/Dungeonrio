@@ -98,14 +98,9 @@
         mysqli_select_db($conection, "dungeonrio");
         $mazmorras = ["Reposo de los Reyes","Asalto a Boralus","Fuerte Libre","Altar de la Tormenta","Veta Madre","Catacumbas putrefactas"];
 
-        $sqlIdJugador = "SELECT ID FROM personaje WHERE nombre = '$pj';";
-        $resultIdJugador = mysqli_query($conection,$sqlIdJugador);
-        $IdJugador = mysqli_fetch_array($resultIdJugador)[0];
-        mysqli_free_result($resultIdJugador);
-
         $sql = "SELECT m.nombre,r.tiempo_empleado,r.puntuacion 
                 FROM realiza AS r INNER JOIN mazmorra AS m ON r.ID_mazmorra = m.ID 
-                WHERE r.ID_personaje = $IdJugador ORDER BY m.ID;";
+                WHERE r.ID_personaje = $pj ORDER BY m.ID;";
         $result = mysqli_query($conection,$sql);
         echo "<table class='table table-dark table-striped'>";
         echo "<tr class='text-center'><th scope='col'>Mazmorra</th><th scope='col'>Tiempo Empleado</th><th scope='col'>Puntuacion</th></tr>";
@@ -135,13 +130,8 @@
         $conection = mysqli_connect('127.0.0.1', 'root', '');
         mysqli_select_db($conection, "dungeonrio");
 
-        $sqlIdHermandad = "SELECT ID FROM hermandad WHERE nombre = '$hermandad';";
-        $resultIdHermandad = mysqli_query($conection,$sqlIdHermandad);
-        $IdHermandad = mysqli_fetch_array($resultIdHermandad)[0];
-        mysqli_free_result($resultIdHermandad);
-
         $sql = "SELECT p.nombre,p.clase,p.especializacion,p.puntuacion 
-                FROM personaje AS p INNER JOIN hermandad AS h ON p.ID_hermandad = h.ID WHERE h.ID = $IdHermandad";
+                FROM personaje AS p INNER JOIN hermandad AS h ON p.ID_hermandad = h.ID WHERE h.ID = $hermandad";
         $result = mysqli_query($conection,$sql);
         echo "<table class='table table-dark table-striped'>";
         echo "<tr class='text-center'><th scope='col'>Nombre</th><th scope='col'>Clase</th><th scope='col'>Especialidad</th><th scope='col'>Puntuacion</th></tr>";
@@ -164,18 +154,11 @@
         mysqli_select_db($conection, "dungeonrio");
         $sql = "SELECT concat('1-', id) AS value ,nombre AS label FROM personaje WHERE nombre LIKE '%$nombre%'
                 UNION
-                SELECT id AS value ,nombre AS label FROM hermandad WHERE nombre LIKE '%$nombre%'";
+                SELECT concat('2-', id) AS value ,nombre AS label FROM hermandad WHERE nombre LIKE '%$nombre%'";
         $result = mysqli_query($conection,$sql);
         $respuesta = array();
         while ($row = mysqli_fetch_array($result)) {
             $respuesta[] = $row;
-            // if ($row[0] == "personaje") {
-            //     $temporal = array("tipo"=>"personaje","id"=>$row["id"],"nombre"=>$row["nombre"]);
-            //     $respuesta[] = $temporal;
-            // }else {
-            //     $temporal = array("tipo"=>"hermandad","id"=>$row["id"],"nombre"=>$row["nombre"]);
-            //     $respuesta[] = $temporal;
-            // }
         }
         mysqli_free_result($result);
         mysqli_close($conection);
