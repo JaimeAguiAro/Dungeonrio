@@ -7,38 +7,75 @@
     <title>Pagina Inicial</title>
     <link rel="icon" href="img/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <?php
     include "backend.php";
     session_start();
+    if (isset($_POST["cerrarSesion"])) {
+        session_destroy();
+        unset($_POST["cerrarSesion"]);
+    }
 ?>
 <body class=" bg-secondary">
     <script type="text/javascript">
-        function busqueda(){
-            var busquedatxt = document.getElementById("busqueda").value;
-            $.ajax({
-                type: "POST",
-                url: 'backend.php',
-                data: {buscar:busquedatxt},
-                success: function(response)
-                {
-                    var jsonData = JSON.parse(response);
-                    // var options;
-                    // jsonData.forEach(res => {
-                    //     options += "<option value=" + res.nombre + ">" + res.nombre + "</option>";
-                    // });
-                    // document.getElementById("opciones").innerHTML = options;
-                    $(function() {
-                        $( "#busqueda" ).autocomplete({
-                            source: jsonData,
-                        });
+        $(document).ready(function(){
+            $("#cerrarSesion").on("click", function(){
+                $.ajax({
+                    type: "POST",
+                    url: "index.php",
+                    data: {cerrarSesion:"cerrar"}
+                });
+            });
+            $("#busqueda").autocomplete({
+                source:function(request,response){
+                    $.ajax({
+                        url: "backend.php",
+                        type:"GET",
+                        dataType:"json",
+                        data:{
+                            buscar: request.term
+                        },                    
+                        success:function(data){
+                            response(data)
+                        }
                     });
                 }
             });
-        }
+            $("#busqueda").on('autocompleteselect', function (e, ui) {
+                alert("te envío a: " + ui.item.value.split("-")[0] + " con el id " + ui.item.value.split("-")[1]);
+            }).change();
+
+        });
+
+        
+        
+        // function busqueda(){
+        //     var busquedatxt = document.getElementById("busqueda").value;
+        //     $.ajax({
+        //         type: "POST",
+        //         url: 'backend.php',
+        //         data: {buscar:busquedatxt},
+        //         success: function(response)
+        //         {
+        //             var jsonData = JSON.parse(response);
+        //             // var options;
+        //             // jsonData.forEach(res => {
+        //             //     options += "<option value=" + res.nombre + ">" + res.nombre + "</option>";
+        //             // });
+        //             // document.getElementById("opciones").innerHTML = options;
+        //             $(function() {
+        //                 $( "#busqueda" ).autocomplete({
+        //                     source: jsonData,
+        //                 });
+        //             });
+        //         }
+        //     });
+        // }
     </script>  
     <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
             <div class="container-fluid">
@@ -61,7 +98,7 @@
                     } 
                     ?>
                 </ul>
-                <input style="width: 270px;" class="form-control" type="text" onkeyup="busqueda()" name="busqueda" id="busqueda" placeholder="Buscar Personaje o hermandad">
+                <input style="width: 270px;" class="form-control" type="text" id="busqueda" placeholder="Buscar Personaje o hermandad">
                 <?php
                     if (isset($_SESSION['user'])) {
                         echo "<div class='dropstart ps-2'>";
@@ -70,7 +107,7 @@
                                 <li><a class='dropdown-item' href='configuracion.php'>Configuracion</a></li>
                                 <li><a class='dropdown-item' href='#'>Another action</a></li>
                                 <li><hr class='dropdown-divider'></li>
-                                <li><a class='dropdown-item' href='#'>Something else here</a></li>
+                                <li><a class='dropdown-item' id='cerrarSesion' href=''>Cerrar Sesion</a></li>
                             </ul>";
                         echo "</div>";
                     }
