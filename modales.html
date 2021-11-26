@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="nombrePj" class="col-form-label">Nombre:</label>
-                    <input type="text" id="nombrePj" name="nombrePj" class="form-control">
+                    <input type="text" id="nombrePj" name="nombrePj" class="form-control"><br>
                     <label for="clasePj" class="col-form-label">Clase:</label>
                     <select class="form-select" id="clasePj" name="clasePj">
                         <option selected hidden></option>
@@ -23,16 +23,16 @@
                         <option value="Monje">Monje</option>
                         <option value="Druida">Druida</option>
                         <option value="Caballero de la Muerte">Caballero de la Muerte</option>
-                    </select>
+                    </select><br>
                     <label for="especializacionPj" class="col-form-label">Especializacion:</label>
                     <select class="form-select" id="especializacionPj" name="especializacionPj">
                         <option selected hidden></option>
                         <option value="Tank">Tank</option>
                         <option value="DPS">DPS</option>
                         <option value="Healer">Healer</option>
-                    </select>
+                    </select><br>
                     <label for="jugadorPj" class="col-form-label">Jugador:</label>
-                    <input type="text" name="jugadorPj" id="jugadorPj" class="form-control" placeholder="Nombre del Jugador">
+                    <input type="text" name="jugadorPj" id="jugadorPj" class="form-control" placeholder="Nombre del Jugador"><br>
                     <button class="btn btn-primary mt-2" onclick="añadirPj()">Añadir</button>
                     <script type="text/javascript">
                         function añadirPj(){
@@ -73,12 +73,12 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="nombreHermandad" class="col-form-label">Nombre:</label>
-                    <input type="text" id="nombreHermandad" name="nombreHermandad" class="form-control">
+                    <input type="text" id="nombreHermandad" name="nombreHermandad" class="form-control"><br>
                     <label for="logo" class="col-form-label">Logo:</label>
                     <select class="form-select" id="logo" name="logo">
                         <option selected hidden></option>
                         <option value="-">Por Defecto</option>
-                    </select>
+                    </select><br>
                     <button class="btn btn-primary mt-2" onclick="añadirHermandad()">Añadir</button>
                     <script type="text/javascript">
                         function añadirHermandad(){
@@ -176,11 +176,11 @@
                         <option value="Altar de la Tormenta">Altar de la Tormenta</option>
                         <option value="Veta Madre">Veta Madre</option>
                         <option value="Catacumbas putrefactas">Catacumbas putrefactas</option>
-                    </select>
+                    </select><br>
                     <label for="nombrePjRealizada" class="col-form-label">Nombre del Personaje:</label>
-                    <input type="text" id="nombrePjRealizada" name="nombrePjRealizada" class="form-control">
+                    <input type="text" id="nombrePjRealizada" name="nombrePjRealizada" class="form-control"><br>
                     <label for="tiempo">Tiempo empleado:</label>
-                    <input type="text" id="tiempo" name="tiempo" class="form-control" placeholder="00:00:00">
+                    <input type="text" id="tiempo" name="tiempo" class="form-control" placeholder="00:00:00"><br>
                     <button class="btn btn-primary mt-2" onclick="añadirMazmorraRealizad()">Añadir</button>
                     <script type="text/javascript">
                         function añadirMazmorraRealizad(){
@@ -217,9 +217,9 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="hermandadProgreso" class="col-form-label">Hermandad:</label>
-                    <input type="text" id="hermandadProgreso" name="hermandadProgreso" class="form-control">
+                    <input type="text" id="hermandadProgreso" name="hermandadProgreso" class="form-control"><br>
                     <label for="jefe">Jefe(1-10):</label>
-                    <input type="number" id="jefe" name="jefe" min="1" max="10">
+                    <input type="number" id="jefe" name="jefe" min="1" max="10"><br><br>
                     <button class="btn btn-primary mt-2" onclick="añadirProgreso()">Añadir</button>
                     <script type="text/javascript">
                         function añadirProgreso(){
@@ -260,9 +260,9 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="usuario" class="col-form-label">Usuario:</label>
-                    <input type="text" id="usuario" name="usuario" class="form-control">
+                    <input type="text" id="usuario" name="usuario" class="form-control"><br>
                     <label for="contra">Contraseña:</label>
-                    <input type="password" id="contra" name="contra" class="form-control">
+                    <input type="password" id="contra" name="contra" class="form-control"><br>
                     <button class="btn btn-primary mt-2" onclick="añadirJugador()">Añadir</button>
                     <script type="text/javascript">
                         function añadirJugador(){

@@ -1,11 +1,11 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $("#cerrarSesion").on("click", function(){
-            $.ajax({
-                type: "POST",
-                url: "index.php",
-                data: {cerrarSesion:"cerrar"}
-            });
+            var form = $('<form action="index.php" method="post">' +
+                        '<input type="text" name="cerrarSesion" value="cerrar" />' +
+                        '</form>');
+            $('body').append(form);
+            form.submit();
         });
         $("#busqueda").autocomplete({
             source:function(request,response){
@@ -72,13 +72,10 @@
                         <li><a class='dropdown-item' href='configuracion.php'>Configuracion</a></li>
                         <li><a class='dropdown-item' href='#'>Another action</a></li>
                         <li><hr class='dropdown-divider'></li>
-                        <li><a class='dropdown-item' id='cerrarSesion' href=''>Cerrar Sesion</a></li>
+                        <li><a class='dropdown-item' id='cerrarSesion' style='cursor: pointer;'>Cerrar Sesion</a></li>
                     </ul>";
                 echo "</div>";
-            }
-        ?>
-        <?php
-            if (!isset($_SESSION['user'])) {
+            }else {
                 echo "<a class='m-1 btn btn-dark' href='login.php'>Login</a>";
             }
         ?>

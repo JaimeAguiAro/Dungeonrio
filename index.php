@@ -19,6 +19,7 @@
         session_start();
         if (isset($_POST["cerrarSesion"])) {
             session_destroy();
+            session_start();
             unset($_POST["cerrarSesion"]);
         }
         include "header.php";
