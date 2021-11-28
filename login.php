@@ -38,8 +38,8 @@
                 mysqli_close($conection);
                 $_SESSION['user'] = $row["usuario"];
                 $_SESSION['id'] = $id;
-                header("Location: http://localhost/Dungeonrio/");
-                exit();
+                header("Location: index.php");
+                die();
             }else {
                 mysqli_free_result($result);
                 mysqli_close($conection);

@@ -173,15 +173,27 @@
         $conection = mysqli_connect('127.0.0.1', 'root', '');
         mysqli_select_db($conection, "dungeonrio");
 
-        $sqlIdJugador = "SELECT ID FROM jugador WHERE usuario = '$jugador';";
-        $resultIdJugador = mysqli_query($conection,$sqlIdJugador);
-        $IdJugador = mysqli_fetch_array($resultIdJugador)[0];
-        mysqli_free_result($resultIdJugador);
-
-        $sql = "INSERT INTO personaje(nombre, clase, especializacion,ID_jugador)
-                VALUES('$nombrePj','$clase','$especializacion',$IdJugador);";
-        mysqli_query($conection,$sql);
-
+        if ($nombrePj != "" && $clase != "" && $especializacion != "" && $jugador != "") {
+            $sqlIdJugador = "SELECT ID FROM jugador WHERE usuario = '$jugador';";
+            $resultIdJugador = mysqli_query($conection,$sqlIdJugador);
+            $row = mysqli_fetch_array($resultIdJugador);
+            if ($row != null) {
+                $IdJugador = $row[0];
+                mysqli_free_result($resultIdJugador);
+                $sql = "INSERT INTO personaje(nombre, clase, especializacion,ID_jugador,favorito,puntuacion)
+                        VALUES('$nombrePj','$clase','$especializacion',$IdJugador,FALSE,0);";
+                if (mysqli_query($conection,$sql)) {
+                    echo "Personaje añadido";
+                } else {
+                    echo "El personaje ya existe";
+                }
+            }else {
+                echo "El jugador no existe";
+            }
+        }else {
+            echo "Rellene todos los datos";
+        }
+        
         mysqli_close($conection);
     }
     
@@ -207,59 +219,99 @@
         $conection = mysqli_connect('127.0.0.1', 'root', '');
         mysqli_select_db($conection, "dungeonrio");
 
-        $sqlAñadirGrupo = "INSERT INTO grupo(nombre)
-                VALUES('$nombreGrupo');";
-        mysqli_query($conection,$sqlAñadirGrupo);
+        if ($nombreGrupo != "" && $nombreTank != "" && $nombrePrimerDPS != "" && $nombreSegundoDPS != "" && $nombreTercerDPS != "" && $nombreHealer != "") {
+            $sqlIdGrupo = "SELECT ID FROM grupo WHERE nombre = '$nombreGrupo';";
+            $resultIdGrupo = mysqli_query($conection,$sqlIdGrupo);
+            $rowgrupo = mysqli_fetch_array($resultIdGrupo);
 
-        $sqlIdGrupo = "SELECT ID FROM grupo WHERE nombre = '$nombreGrupo';";
-        $resultIdGrupo = mysqli_query($conection,$sqlIdGrupo);
-        $IdGrupo = mysqli_fetch_array($resultIdGrupo)[0];
-        mysqli_free_result($resultIdGrupo);
+            $sqlIdTank = "SELECT ID,puntuacion FROM personaje WHERE nombre = '$nombreTank';";
+            $resultIdTank = mysqli_query($conection,$sqlIdTank);
+            $rowTank = mysqli_fetch_array($resultIdTank);
 
-        $sqlIdTank = "SELECT ID FROM personaje WHERE nombre = '$nombreTank';";
-        $resultIdTank = mysqli_query($conection,$sqlIdTank);
-        $IdTank = mysqli_fetch_array($resultIdTank)[0];
-        mysqli_free_result($resultIdTank);
+            $sqlIdPrimerDPS = "SELECT ID,puntuacion FROM personaje WHERE nombre = '$nombrePrimerDPS';";
+            $resultIdPrimerDPS = mysqli_query($conection,$sqlIdPrimerDPS);
+            $rowPrimerDPS = mysqli_fetch_array($resultIdPrimerDPS);
 
-        $sqlIdPrimerDPS = "SELECT ID FROM personaje WHERE nombre = '$nombrePrimerDPS';";
-        $resultIdPrimerDPS = mysqli_query($conection,$sqlIdPrimerDPS);
-        $IdPrimerDPS = mysqli_fetch_array($resultIdPrimerDPS)[0];
-        mysqli_free_result($resultIdPrimerDPS);
+            $sqlIdSegundoDPS = "SELECT ID,puntuacion FROM personaje WHERE nombre = '$nombreSegundoDPS';";
+            $resultIdSegundoDPS = mysqli_query($conection,$sqlIdSegundoDPS);
+            $rowSegundoDPS = mysqli_fetch_array($resultIdSegundoDPS);
 
-        $sqlIdSegundoDPS = "SELECT ID FROM personaje WHERE nombre = '$nombreSegundoDPS';";
-        $resultIdSegundoDPS = mysqli_query($conection,$sqlIdSegundoDPS);
-        $IdSegundoDPS = mysqli_fetch_array($resultIdSegundoDPS)[0];
-        mysqli_free_result($resultIdSegundoDPS);
+            $sqlIdTercerDPS = "SELECT ID,puntuacion FROM personaje WHERE nombre = '$nombreTercerDPS';";
+            $resultIdTercerDPS = mysqli_query($conection,$sqlIdTercerDPS);
+            $rowTercerDPS = mysqli_fetch_array($resultIdTercerDPS);
 
-        $sqlIdTercerDPS = "SELECT ID FROM personaje WHERE nombre = '$nombreTercerDPS';";
-        $resultIdTercerDPS = mysqli_query($conection,$sqlIdTercerDPS);
-        $IdTercerDPS = mysqli_fetch_array($resultIdTercerDPS)[0];
-        mysqli_free_result($resultIdTercerDPS);
+            $sqlIdHealer = "SELECT ID,puntuacion FROM personaje WHERE nombre = '$nombreHealer';";
+            $resultIdHealer = mysqli_query($conection,$sqlIdHealer);
+            $rowHealer = mysqli_fetch_array($resultIdHealer);
 
-        $sqlIdHealer = "SELECT ID FROM personaje WHERE nombre = '$nombreHealer';";
-        $resultIdHealer = mysqli_query($conection,$sqlIdHealer);
-        $IdHealer = mysqli_fetch_array($resultIdHealer)[0];
-        mysqli_free_result($resultIdHealer);
+            if ($rowgrupo == null) {
+                $IdGrupo = $rowgrupo[0];
+                if ($rowTank != null) {
+                    $IdTank = $rowTank[0];
+                    $puntuacionTank = $rowTank[1];
+                    if ($rowPrimerDPS != null) {
+                        $IdPrimerDPS = $rowPrimerDPS[0];
+                        $puntuacionPrimerDPS = $rowPrimerDPS[1];
+                        if ($rowSegundoDPS != null) {
+                            $IdSegundoDPS = $rowSegundoDPS[0];
+                            $puntuacionSegundoDPS = $rowSegundoDPS[1];
+                            if ($rowTercerDPS != null) {
+                                $IdTercerDPS = $rowTercerDPS[0];
+                                $puntuacionTercerDPS = $rowTercerDPS[1];
+                                if ($rowHealer != null) {
+                                    $IdHealer = $rowHealer[0];
+                                    $puntuacionHealer = $rowHealer[1];
+                                    $sqlAñadirGrupo = "INSERT INTO grupo(nombre,puntuacion)
+                                                        VALUES('$nombreGrupo',$puntuacionHealer+$puntuacionPrimerDPS+$puntuacionSegundoDPS+$puntuacionTercerDPS+$puntuacionHealer);";
+                                    mysqli_query($conection,$sqlAñadirGrupo);
 
-        $sqlAñadirPerteneceTank = "INSERT INTO pertenece(ID_grupo,ID_personaje)
-                                VALUES($IdGrupo,$IdTank);";
-        mysqli_query($conection,$sqlAñadirPerteneceTank);
+                                    $sqlAñadirPerteneceTank = "INSERT INTO pertenece(ID_grupo,ID_personaje)
+                                                            VALUES($IdGrupo,$IdTank);";
+                                    mysqli_query($conection,$sqlAñadirPerteneceTank);
 
-        $sqlAñadirPertenecePrimerDPS = "INSERT INTO pertenece(ID_grupo,ID_personaje)
-                                VALUES($IdGrupo,$IdPrimerDPS);";
-        mysqli_query($conection,$sqlAñadirPertenecePrimerDPS);
+                                    $sqlAñadirPertenecePrimerDPS = "INSERT INTO pertenece(ID_grupo,ID_personaje)
+                                                            VALUES($IdGrupo,$IdPrimerDPS);";
+                                    mysqli_query($conection,$sqlAñadirPertenecePrimerDPS);
 
-        $sqlAñadirPerteneceSegundoDPS = "INSERT INTO pertenece(ID_grupo,ID_personaje)
-                                VALUES($IdGrupo,$IdSegundoDPS);";
-        mysqli_query($conection,$sqlAñadirPerteneceSegundoDPS);
+                                    $sqlAñadirPerteneceSegundoDPS = "INSERT INTO pertenece(ID_grupo,ID_personaje)
+                                                            VALUES($IdGrupo,$IdSegundoDPS);";
+                                    mysqli_query($conection,$sqlAñadirPerteneceSegundoDPS);
 
-        $sqlAñadirPerteneceTercerDPS = "INSERT INTO pertenece(ID_grupo,ID_personaje)
-                                VALUES($IdGrupo,$IdTercerDPS);";
-        mysqli_query($conection,$sqlAñadirPerteneceTercerDPS);
+                                    $sqlAñadirPerteneceTercerDPS = "INSERT INTO pertenece(ID_grupo,ID_personaje)
+                                                            VALUES($IdGrupo,$IdTercerDPS);";
+                                    mysqli_query($conection,$sqlAñadirPerteneceTercerDPS);
 
-        $sqlAñadirPerteneceHealer = "INSERT INTO pertenece(ID_grupo,ID_personaje)
-                                VALUES($IdGrupo,$IdHealer);";
-        mysqli_query($conection,$sqlAñadirPerteneceHealer);
+                                    $sqlAñadirPerteneceHealer = "INSERT INTO pertenece(ID_grupo,ID_personaje)
+                                                            VALUES($IdGrupo,$IdHealer);";
+                                    mysqli_query($conection,$sqlAñadirPerteneceHealer);
+                                    echo "Grupo añadido";
+                                }else {
+                                    echo "El Healer no existe";
+                                }
+                            }else {
+                                echo "El tercer DPS no existe";
+                            }
+                        }else {
+                            echo "El segundo DPS no existe";
+                        }
+                    }else {
+                        echo "El primer DPS no existe";
+                    }
+                }else {
+                    echo "El tank no existe";
+                }
+            }else {
+                echo "El grupo ya existe";
+            }
+            mysqli_free_result($resultIdPrimerDPS);
+            mysqli_free_result($resultIdTank);
+            mysqli_free_result($resultIdSegundoDPS);
+            mysqli_free_result($resultIdTercerDPS);
+            mysqli_free_result($resultIdHealer);
+            mysqli_free_result($resultIdGrupo);
+        }else {
+            echo "Rellene todos los datos";
+        }
 
         mysqli_close($conection);
     }
@@ -336,7 +388,6 @@
         $progreso = "SELECT * FROM progreso WHERE ID_hermandad = $IDHermandad AND jefeMatado = $jefe;";
         $resultProgreso = mysqli_query($conection,$progreso);
         if (mysqli_fetch_array($resultProgreso)==null) {
-            // echo "$progreso";
             $sqlProgreso = "INSERT INTO progreso(ID_hermandad,jefeMatado)
                     VALUES('$IDHermandad','$jefe');";
             mysqli_query($conection,$sqlProgreso);
@@ -344,7 +395,6 @@
             mysqli_query($conection,$sqlUpdateHermandad);
             echo "Progreso añadido";
         }else {
-            // echo "$progreso";
             echo $hermandadProgreso." ya ha matado al jefe: ".$jefe;
         }
         mysqli_free_result($resultProgreso);

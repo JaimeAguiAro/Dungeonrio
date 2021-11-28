@@ -17,6 +17,10 @@
 <body class="bg-secondary">
     <?php
         session_start();
+        if (!isset($_SESSION["admin"])) {
+            header("Location: index.php");
+            die();
+        }
         include "header.php";
     ?>
     <main class="container mt-5 mb-3">

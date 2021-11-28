@@ -47,9 +47,9 @@
                                         clasePj:clasePj,
                                         especializacionPj:especializacionPj,
                                         jugadorPj:jugadorPj},
-                                success: function()
+                                success: function(res)
                                 {
-                                    alert("Personaje añadido");
+                                    alert(res);
                                 },
                                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                                     alert("Status: " + textStatus);
@@ -87,9 +87,9 @@
                                 type: "GET",
                                 url: 'backend.php',
                                 data: {nombreHermandad:nombreHermandad},
-                                success: function()
+                                success: function(res)
                                 {
-                                    alert("Hermandad añadida");
+                                    alert(res);
                                 },
                                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                                     alert("Status: " + textStatus);
@@ -142,9 +142,9 @@
                                         nombreSegundoDPS:nombreSegundoDPS,
                                         nombreTercerDPS:nombreTercerDPS,
                                         nombreHealer:nombreHealer},
-                                success: function()
+                                success: function(res)
                                 {
-                                    alert("Grupo añadido");
+                                    alert(res);
                                 },
                                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                                     alert("Status: " + textStatus);
