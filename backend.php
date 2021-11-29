@@ -323,55 +323,70 @@
         $puntuacion = 100;
         $conection = mysqli_connect('127.0.0.1', 'root', '');
         mysqli_select_db($conection, "dungeonrio");
+        $patternTiempo = "/^(?:1[012]|0[0-9]):[0-5][0-9]:[0-5][0-9]$/";
+        
+        if ($nombreMazmorra != "" && $nombrePjRealizada != "" && $tiempo != "") {
+            if (preg_match($patternTiempo, $tiempo)) {
+                $sqlIdPersonaje = "SELECT ID FROM personaje WHERE nombre = '$nombrePjRealizada';";
+                $resultIdPersonaje = mysqli_query($conection,$sqlIdPersonaje);
+                $rowIdPersonaje = mysqli_fetch_array($resultIdPersonaje);
+                if ($rowIdPersonaje != null && ($tiempoA["0"] <= 60 && $tiempoA["0"] >= 0) && ($tiempoA["1"] <= 60 && $tiempoA["1"] >= 0) && ($tiempoA["2"] <= 60 && $tiempoA["2"] >= 0)) {
+                    $IdPersonaje = $rowIdPersonaje[0];
 
-        $sqlIdMazmorra = "SELECT ID,tiempoMaximo FROM mazmorra WHERE nombre = '$nombreMazmorra';";
-        $resultIdMazmorra = mysqli_query($conection,$sqlIdMazmorra);
-        $rowMazmorra = mysqli_fetch_array($resultIdMazmorra);
-        $IdMazmorra = $rowMazmorra["ID"];
-        $TiempoMaximoMazmorra = $rowMazmorra["tiempoMaximo"];
-        $TiempoMaximoMazmorraA = explode(":",$rowMazmorra["tiempoMaximo"]);
-        mysqli_free_result($resultIdMazmorra);
+                    $sqlIdMazmorra = "SELECT ID,tiempoMaximo FROM mazmorra WHERE nombre = '$nombreMazmorra';";
+                    $resultIdMazmorra = mysqli_query($conection,$sqlIdMazmorra);
+                    $rowMazmorra = mysqli_fetch_array($resultIdMazmorra);
+                    $IdMazmorra = $rowMazmorra["ID"];
+                    $TiempoMaximoMazmorra = $rowMazmorra["tiempoMaximo"];
+                    $TiempoMaximoMazmorraA = explode(":",$rowMazmorra["tiempoMaximo"]);
+                    mysqli_free_result($resultIdMazmorra);
 
-        $sqlIdPersonaje = "SELECT ID FROM personaje WHERE nombre = '$nombrePjRealizada';";
-        $resultIdPersonaje = mysqli_query($conection,$sqlIdPersonaje);
-        $IdPersonaje = mysqli_fetch_array($resultIdPersonaje)[0];
-        mysqli_free_result($resultIdPersonaje);
+                    $sqlPuntuacion = "SELECT puntuacion FROM realiza WHERE ID_mazmorra = '$IdMazmorra' AND ID_personaje = '$IdPersonaje';";
+                    $resultPuntuacion = mysqli_query($conection,$sqlPuntuacion);
+                    $rowRealiza = mysqli_fetch_array($resultPuntuacion);
 
-        $sqlPuntuacion = "SELECT puntuacion FROM realiza WHERE ID_mazmorra = '$IdMazmorra' AND ID_personaje = '$IdPersonaje';";
-        $resultPuntuacion = mysqli_query($conection,$sqlPuntuacion);
-        $row = mysqli_fetch_array($resultPuntuacion);
+                    $horas = $TiempoMaximoMazmorraA["0"] - $tiempoA["0"];
+                    $minutos = $TiempoMaximoMazmorraA["1"] - $tiempoA["1"];
+                    $segundos = $TiempoMaximoMazmorraA["2"] - $tiempoA["2"];
+                    if ($horas < 0) {
+                        $puntuacion = 0;
+                    }else {
+                        $puntuacion += $minutos + $segundos;
+                    }
+                    if ($rowRealiza==null) {
+                        $sqlAñadirRealiza = "INSERT INTO realiza(ID_personaje,ID_mazmorra,tiempo_empleado,puntuacion)
+                                            VALUES($IdPersonaje,$IdMazmorra,'$tiempo',$puntuacion);";
+                        mysqli_query($conection,$sqlAñadirRealiza);
+                        $sqlUpdatePuntuacion = "UPDATE personaje AS p SET p.puntuacion = p.puntuacion + $puntuacion WHERE ID = $IdPersonaje";
+                        mysqli_query($conection,$sqlUpdatePuntuacion);
+                        echo "Mazmorra añadida puntuacion:".$puntuacion;
+                    }else {
+                        $puntuacionActual = $rowRealiza["puntuacion"];
+                        $diferencia = $puntuacion - $puntuacionActual;
+                        if ($diferencia > 0) {
+                            $diferencia - $diferencia;
+                            echo "Mazmorra añadida puntuacion:".$puntuacion;
+                            $sqlUpdatePuntuacionR = "UPDATE realiza AS r SET r.puntuacion = $puntuacion WHERE ID_personaje = $IdPersonaje AND ID_mazmorra = $IdMazmorra";
+                            mysqli_query($conection,$sqlUpdatePuntuacionR);
+                            $sqlUpdatePuntuacionP = "UPDATE personaje AS p SET p.puntuacion = p.puntuacion + $diferencia WHERE ID = $IdPersonaje";
+                            mysqli_query($conection,$sqlUpdatePuntuacionP);
+                        }else {
+                            echo "Mazmorra no añadida por tener menor o igual puntuacion:".$puntuacion." actual:".$puntuacionActual;
+                        }
+                    }
 
-        $horas = $TiempoMaximoMazmorraA["0"] - $tiempoA["0"];
-        $minutos = $TiempoMaximoMazmorraA["1"] - $tiempoA["1"];
-        $segundos = $TiempoMaximoMazmorraA["2"] - $tiempoA["2"];
-        if ($horas < 0) {
-            $puntuacion = 0;
-        }else {
-            $puntuacion += $minutos + $segundos;
-        }
-        if ($row==null) {
-            $sqlAñadirRealiza = "INSERT INTO realiza(ID_personaje,ID_mazmorra,tiempo_empleado,puntuacion)
-                                VALUES($IdPersonaje,$IdMazmorra,'$tiempo',$puntuacion);";
-            mysqli_query($conection,$sqlAñadirRealiza);
-            $sqlUpdatePuntuacion = "UPDATE personaje AS p SET p.puntuacion = p.puntuacion + $puntuacion WHERE ID = $IdPersonaje";
-            mysqli_query($conection,$sqlUpdatePuntuacion);
-            echo "Mazmorra añadida puntuacion:".$puntuacion;
-        }else {
-            $puntuacionActual = $row["puntuacion"];
-            $diferencia = $puntuacion - $puntuacionActual;
-            if ($diferencia >= 0) {
-                $diferencia - $diferencia;
-                echo "Mazmorra añadida puntuacion:".$puntuacion;
-                $sqlUpdatePuntuacionR = "UPDATE realiza AS r SET r.puntuacion = $puntuacion WHERE ID_personaje = $IdPersonaje AND ID_mazmorra = $IdMazmorra";
-                mysqli_query($conection,$sqlUpdatePuntuacionR);
-                $sqlUpdatePuntuacionP = "UPDATE personaje AS p SET p.puntuacion = p.puntuacion + $diferencia WHERE ID = $IdPersonaje";
-                mysqli_query($conection,$sqlUpdatePuntuacionP);
+                    mysqli_free_result($resultPuntuacion);
+                }else {
+                    echo "El personaje no existe";
+                }
+                mysqli_free_result($resultIdPersonaje);
+                
             }else {
-                echo "Mazmorra no añadida por tener menor o igual puntuacion:".$puntuacion." actual:".$puntuacionActual;
+                echo "introduzca una hora adecuada";
             }
+        }else {
+            echo "Rellene todos los campos";
         }
-
-        mysqli_free_result($resultPuntuacion);
         mysqli_close($conection);
     }
     if (isset($_GET["hermandadProgreso"])) {
@@ -382,22 +397,26 @@
 
         $hermandad = "SELECT ID FROM hermandad WHERE nombre = '$hermandadProgreso';";
         $resultIDHermandad = mysqli_query($conection,$hermandad);
-        $IDHermandad = mysqli_fetch_array($resultIDHermandad)[0];
-        mysqli_free_result($resultIDHermandad);
-
-        $progreso = "SELECT * FROM progreso WHERE ID_hermandad = $IDHermandad AND jefeMatado = $jefe;";
-        $resultProgreso = mysqli_query($conection,$progreso);
-        if (mysqli_fetch_array($resultProgreso)==null) {
-            $sqlProgreso = "INSERT INTO progreso(ID_hermandad,jefeMatado)
-                    VALUES('$IDHermandad','$jefe');";
-            mysqli_query($conection,$sqlProgreso);
-            $sqlUpdateHermandad = "UPDATE hermandad AS h SET h.avance = h.avance + 1 WHERE ID = $IDHermandad";
-            mysqli_query($conection,$sqlUpdateHermandad);
-            echo "Progreso añadido";
+        $rowHermandad = mysqli_fetch_array($resultIDHermandad)[0];
+        if ($rowHermandad != null) {
+            $IDHermandad = $rowHermandad[0];
+            $progreso = "SELECT * FROM progreso WHERE ID_hermandad = $IDHermandad AND jefeMatado = $jefe;";
+            $resultProgreso = mysqli_query($conection,$progreso);
+            if (mysqli_fetch_array($resultProgreso)==null) {
+                $sqlProgreso = "INSERT INTO progreso(ID_hermandad,jefeMatado)
+                        VALUES('$IDHermandad','$jefe');";
+                mysqli_query($conection,$sqlProgreso);
+                $sqlUpdateHermandad = "UPDATE hermandad AS h SET h.avance = h.avance + 1 WHERE ID = $IDHermandad";
+                mysqli_query($conection,$sqlUpdateHermandad);
+                echo "Progreso añadido";
+            }else {
+                echo $hermandadProgreso." ya ha matado al jefe: ".$jefe;
+            }
+            mysqli_free_result($resultProgreso);
         }else {
-            echo $hermandadProgreso." ya ha matado al jefe: ".$jefe;
+            echo "La hermandad no existe";
         }
-        mysqli_free_result($resultProgreso);
+        mysqli_free_result($resultIDHermandad);
         mysqli_close($conection);
     }
     if (isset($_GET["usuario"])) {
