@@ -1,11 +1,12 @@
 <?php 
     // ini_set('display_errors', 1);
-    if (isset($_POST["cerrarSesion"])) {
-        session_destroy();
-        unset($_POST["cerrarSesion"]);
-    }
     if (!isset($_SESSION)) {
         session_start();
+    }
+    if (isset($_POST["cerrarSesion"])) {
+        session_destroy();
+        session_start();
+        unset($_POST["cerrarSesion"]);
     }
 ?>
 <!DOCTYPE html>
