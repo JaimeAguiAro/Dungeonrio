@@ -1,3 +1,7 @@
+<?php 
+    // ini_set('display_errors', 1);
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +20,6 @@
 <body class=" bg-secondary">
     <?php
         include "backend.php";
-        session_start();
         if (isset($_POST["cerrarSesion"])) {
             session_destroy();
             session_start();
