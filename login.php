@@ -1,4 +1,7 @@
-<?php ini_set('display_errors', 1); ?>
+<?php 
+    ini_set('display_errors', 1);
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +14,6 @@
 </head>
 <body>
     <?php
-        session_start();
         $error = false;
         if (isset($_POST["login"])) {
             $loged = false;
