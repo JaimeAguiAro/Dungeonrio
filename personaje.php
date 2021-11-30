@@ -1,3 +1,9 @@
+<?php 
+    // ini_set('display_errors', 1);
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +22,6 @@
 <body class="bg-secondary">
     <?php
         include "backend.php";
-        session_start();
         include "header.php";
         $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");

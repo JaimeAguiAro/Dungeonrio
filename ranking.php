@@ -1,3 +1,9 @@
+<?php 
+    // ini_set('display_errors', 1);
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,7 +43,6 @@
 </head>
 <body class="bg-secondary">
     <?php
-        session_start();
         include "header.php";
     ?>
     <main class="container mt-5 mb-3">
