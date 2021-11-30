@@ -1,6 +1,8 @@
 <?php 
     // ini_set('display_errors', 1);
-    session_start();
+    if (!isset($_SESSION)) {
+        session_start();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -42,7 +44,7 @@
                 $_SESSION['user'] = $row["usuario"];
                 $_SESSION['id'] = $id;
                 // header("Location: https://dungeonrio.azurewebsites.net/");
-                // echo "<meta http-equiv='refresh' content='0; url=https://dungeonrio.azurewebsites.net/'";
+                echo "<meta http-equiv='refresh' content='0; url=https://dungeonrio.azurewebsites.net/'";
             }else {
                 mysqli_free_result($result);
                 mysqli_close($conection);
