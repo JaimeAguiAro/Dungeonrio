@@ -4,7 +4,7 @@ if (isset($_POST["datos"])) {
     if ($_POST["nombre"] != "") {
         $nombre = $_POST["nombre"];
         $jugador = $_POST["datos"];
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sqlUpdateJugador = "UPDATE jugador SET usuario = '$nombre' WHERE ID = $jugador;";
         mysqli_query($conection,$sqlUpdateJugador);
@@ -15,7 +15,7 @@ if (isset($_POST["datos"])) {
     if ($_POST["descripcion"] != "") {
         $descripcion = $_POST["descripcion"];
         $jugador = $_POST["datos"];
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sqlUpdateJugador = "UPDATE jugador SET descripcion = '$descripcion' WHERE ID = $jugador;";
         mysqli_query($conection,$sqlUpdateJugador);
@@ -28,7 +28,7 @@ if (isset($_POST["datos"])) {
     $jugador = $_POST["contra"];
     if ($pass == $passConfirmar) {
         echo "entro";
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sqlUpdateJugadorPass = "UPDATE jugador SET contraseña = '$pass' WHERE ID = $jugador;";
         mysqli_query($conection,$sqlUpdateJugadorPass);

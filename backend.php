@@ -1,6 +1,6 @@
 <?php
     function GetTopPersonajes($espec){
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sql = "SELECT nombre, clase, puntuacion 
                 FROM personaje 
@@ -21,7 +21,7 @@
         mysqli_close($conection);
     }
     function GetTopGrupos(){
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sql = "SELECT nombre,puntuacion,ID
                 FROM grupo
@@ -40,7 +40,7 @@
         mysqli_close($conection);
     }
     function GetTopHermandades(){
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sql = "SELECT nombre,avance
                 FROM hermandad ORDER BY avance DESC LIMIT 5";
@@ -58,7 +58,7 @@
         mysqli_close($conection);
     }
     function GetHermandadesProgreso(){
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sql = "SELECT h.nombre, p.jefeMatado , fecha
                 FROM progreso AS p INNER JOIN hermandad AS h ON p.ID_hermandad = h.ID ORDER BY fecha DESC LIMIT 5";
@@ -76,7 +76,7 @@
         mysqli_close($conection);
     }
     function getPersonaje($pj){
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sql = "SELECT h.nombre, p.jefeMatado , fecha
                 FROM progreso AS p INNER JOIN hermandad AS h ON p.ID_hermandad = h.ID ORDER BY fecha DESC LIMIT 5";
@@ -94,7 +94,7 @@
         mysqli_close($conection);
     }
     function getPersonajeMazmorras($pj){
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $mazmorras = ["Reposo de los Reyes","Asalto a Boralus","Fuerte Libre","Altar de la Tormenta","Veta Madre","Catacumbas putrefactas"];
 
@@ -127,7 +127,7 @@
         mysqli_close($conection);
     }
     function getHermandadMiembros($hermandad){
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
         $sql = "SELECT p.nombre,p.clase,p.especializacion,p.puntuacion 
@@ -150,7 +150,7 @@
 
     if (isset($_GET["buscar"])) {
         $nombre = $_GET["buscar"];
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $sql = "SELECT concat('1-', id) AS value ,nombre AS label FROM personaje WHERE nombre LIKE '%$nombre%'
                 UNION
@@ -170,7 +170,7 @@
         $clase = $_GET["clasePj"];
         $especializacion = $_GET["especializacionPj"];
         $jugador = $_GET["jugadorPj"];
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
         if ($nombrePj != "" && $clase != "" && $especializacion != "" && $jugador != "") {
@@ -199,7 +199,7 @@
     
     if (isset($_GET["nombreHermandad"])) {
         $nombreHermandad = $_GET["nombreHermandad"];
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
         $sql = "INSERT INTO hermandad(nombre)
@@ -216,7 +216,7 @@
         $nombreSegundoDPS = $_GET["nombreSegundoDPS"];
         $nombreTercerDPS = $_GET["nombreTercerDPS"];
         $nombreHealer = $_GET["nombreHealer"];
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
         if ($nombreGrupo != "" && $nombreTank != "" && $nombrePrimerDPS != "" && $nombreSegundoDPS != "" && $nombreTercerDPS != "" && $nombreHealer != "") {
@@ -321,7 +321,7 @@
         $tiempo = $_GET["tiempo"];
         $tiempoA = explode(":",$_GET["tiempo"]);
         $puntuacion = 100;
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $patternTiempo = "/^(?:1[012]|0[0-9]):[0-5][0-9]:[0-5][0-9]$/";
         
@@ -392,7 +392,7 @@
     if (isset($_GET["hermandadProgreso"])) {
         $hermandadProgreso = $_GET["hermandadProgreso"];
         $jefe = $_GET["jefe"];
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
         $hermandad = "SELECT ID FROM hermandad WHERE nombre = '$hermandadProgreso';";
@@ -422,7 +422,7 @@
     if (isset($_GET["usuario"])) {
         $usuario = $_GET["usuario"];
         $contra = $_GET["contra"];
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
         $jugador = "SELECT ID FROM jugador WHERE usuario = '$usuario';";

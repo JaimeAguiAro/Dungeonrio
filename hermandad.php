@@ -19,7 +19,7 @@
         include "backend.php";
         session_start();
         include "header.php";
-        $conection = mysqli_connect('127.0.0.1', 'root', '');
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
         $id = $_POST['id'];
         $sql = "SELECT * FROM hermandad WHERE ID = $id;";

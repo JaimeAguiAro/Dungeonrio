@@ -16,7 +16,7 @@
             $loged = false;
             $user = $_POST["user"];
             $contra = $_POST["contra"];
-            $conection = mysqli_connect('127.0.0.1', 'root', '');
+            $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
             mysqli_select_db($conection, "dungeonrio");
             $sql = "SELECT * FROM jugador 
                     WHERE usuario = '$user' AND contraseña = '$contra'";
