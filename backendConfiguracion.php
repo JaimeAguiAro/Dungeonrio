@@ -21,7 +21,7 @@ if (isset($_POST["datos"])) {
         mysqli_query($conection,$sqlUpdateJugador);
         mysqli_close($conection);
     }
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    echo "<meta http-equiv='refresh' content='0; url=https://dungeonrio.azurewebsites.net/configuracion.php'";
 }else if(isset($_POST["contra"])){
     $pass = $_POST["pass"];
     $passConfirmar = $_POST["passConfirmar"];
@@ -37,7 +37,7 @@ if (isset($_POST["datos"])) {
         session_start();
         $_SESSION["error"] = "Las contraseñas no coinciden";
     }
-    header('Location: ' . $_SERVER['HTTP_REFERER']); 
+    echo "<meta http-equiv='refresh' content='0; url=https://dungeonrio.azurewebsites.net/configuracion.php'";
 }
 
 ?>

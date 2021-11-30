@@ -23,7 +23,7 @@
 <body class="bg-secondary">
     <?php
         if (!isset($_SESSION["admin"])) {
-            header("Location: index.php");
+            echo "<meta http-equiv='refresh' content='0; url=https://dungeonrio.azurewebsites.net/index.php'";
             die();
         }
         include "header.php";
