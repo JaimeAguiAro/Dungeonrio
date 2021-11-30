@@ -1,5 +1,9 @@
 <?php 
     // ini_set('display_errors', 1);
+    if (isset($_POST["cerrarSesion"])) {
+        session_destroy();
+        unset($_POST["cerrarSesion"]);
+    }
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -22,11 +26,6 @@
 <body class=" bg-secondary">
     <?php
         include "backend.php";
-        if (isset($_POST["cerrarSesion"])) {
-            session_destroy();
-            session_start();
-            unset($_POST["cerrarSesion"]);
-        }
         include "header.php";
     ?>
     <main class="container mt-5 mb-3">
