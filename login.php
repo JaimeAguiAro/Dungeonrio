@@ -11,9 +11,9 @@
 </head>
 <body>
     <?php
+        session_start();
         $error = false;
         if (isset($_POST["login"])) {
-            session_start();
             $loged = false;
             $user = $_POST["user"];
             $contra = $_POST["contra"];
