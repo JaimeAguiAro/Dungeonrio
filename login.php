@@ -40,7 +40,7 @@
                 $_SESSION['user'] = $row["usuario"];
                 $_SESSION['id'] = $id;
                 // header("Location: https://dungeonrio.azurewebsites.net/");
-                echo "<meta http-equiv='refresh' content='0; url=https://dungeonrio.azurewebsites.net/'";
+                // echo "<meta http-equiv='refresh' content='0; url=https://dungeonrio.azurewebsites.net/'";
             }else {
                 mysqli_free_result($result);
                 mysqli_close($conection);
