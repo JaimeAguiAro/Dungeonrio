@@ -202,11 +202,25 @@
         $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
-        $sql = "INSERT INTO hermandad(nombre)
-                VALUES('$nombreHermandad');";
-        mysqli_query($conection,$sql);
+        $sqlHermandad = "SELECT ID FROM hermandad WHERE nombre = '$nombreHermandad';";
+        $resultHermandad = mysqli_query($conection,$sqlHermandad);
+        $rowhermandad = mysqli_fetch_array($resultHermandad);
 
-        mysqli_close($conection);
+        if ($rowhermandad == null) {
+            if ($nombreHermandad != "") {
+                $sql = "INSERT INTO hermandad(nombre,avance)
+                    VALUES('$nombreHermandad',0);";
+                mysqli_query($conection,$sql);
+                mysqli_close($conection);
+                echo "Hermandad añadida";
+            }else {
+                echo "Rellene todos los datos";
+            }
+        }else {
+            echo "La hermandad ya existe";
+        }
+        
+        
     }
 
     if (isset($_GET["nombreGrupo"])) {
