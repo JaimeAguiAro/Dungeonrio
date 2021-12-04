@@ -78,5 +78,66 @@
     <?php
         include "footer.php";
     ?>
+    <div class="modal fade" tabindex="-1" aria-labelledby="hermandadGMModalLabel" aria-hidden="true" id="HermandadGM">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hermandadGMModalLabel">Administrar Hermandad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label" for="descripcion">Descripcion</label><br>
+                    <textarea class="form-cotrol" id="descripcion" name="descripcion" value=<?php echo '"'.$row["descripcion"].'"'; ?> style="resize: none; height: 150px;min-width: 50%;"></textarea>
+                    <p class="m-4">
+                        <a class="btn btn-dark" data-bs-toggle="collapse" href="#contraseñaCollapse" role="button" aria-expanded="false" aria-controls="contraseñaCollapse">Cambiar Contraseña</a>
+                    </p>
+                    <div class="collapse" id="contraseñaCollapse">
+                        <div class="card card-body" style="min-width: 50%;">
+                            <form action="backendConfiguracion.php" method="POST">
+                                <div class="mb-3">
+                                    <label for="pass" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" name="pass" id="pass">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
+                                    <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
+                                </div>
+                                <button type="submit" name="contra" value="<?php echo $_SESSION["id"] ?>" class="btn btn-dark">Cambiar Contraseña</button>
+                            </form>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        function HermandadDescripcion(){
+                            var descripcionhermandad = document.getElementById("descripcionhermandad").value;
+                            $.ajax({
+                                type: "GET",
+                                url: 'backend.php',
+                                data: {descripcionhermandad:descripcionhermandad},
+                                success: function(res)
+                                {
+                                    alert(res);
+                                }
+                            });
+                        }
+                        function HermandadAddPj(){
+                            var descripcionhermandad = document.getElementById("descripcionhermandad").value;
+                            var descripcionhermandad = document.getElementById("descripcionhermandad").value;
+                            $.ajax({
+                                type: "GET",
+                                url: 'backend.php',
+                                data: {descripcionhermandad:descripcionhermandad},
+                                success: function(res)
+                                {
+                                    alert(res);
+                                }
+                            });
+                        }
+                    </script>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

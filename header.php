@@ -60,6 +60,17 @@
                 <a class="nav-link active" href="add.php">Añadir</a>
                 </li>
             <?php 
+
+            } 
+            if (isset($_POST['id'])) {
+                if (isGM($_SESSION['id'],$_POST['id'])) {
+                    ?>
+                        <li class="nav-item">
+                        <a class="nav-link active" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#HermandadGM">Administrar Hermandad</a>
+                        </li>
+                    <?php 
+                }
+            
             } 
             ?>
         </ul>

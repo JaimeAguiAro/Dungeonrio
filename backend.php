@@ -130,22 +130,46 @@
         $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
-        $sql = "SELECT p.nombre,p.clase,p.especializacion,p.puntuacion 
-                FROM personaje AS p INNER JOIN hermandad AS h ON p.ID_hermandad = h.ID WHERE h.ID = $hermandad";
+        $sql = "SELECT p.nombre,p.clase,p.especializacion,m.rango,p.puntuacion
+                FROM miembro AS m 
+                INNER JOIN personaje AS p ON m.ID_personaje = p.ID 
+                INNER JOIN hermandad AS h ON m.ID_hermandad = h.ID 
+                WHERE h.ID = $hermandad";
         $result = mysqli_query($conection,$sql);
         echo "<table class='table table-dark table-striped'>";
-        echo "<tr class='text-center'><th scope='col'>Nombre</th><th scope='col'>Clase</th><th scope='col'>Especialidad</th><th scope='col'>Puntuacion</th></tr>";
+        echo "<tr class='text-center'><th scope='col'>Nombre</th><th scope='col'>Clase</th><th scope='col'>Especialidad</th><th scope='col'>Rango</th><th scope='col'>Puntuacion</th></tr>";
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr class='text-center'>";
             echo "<td scope='row'>".$row["nombre"]."</td>";
             echo "<td>".$row["clase"]."</td>";
             echo "<td>".$row["especializacion"]."</td>";
+            echo "<td>".$row["rango"]."</td>";
             echo "<td>".$row["puntuacion"]."</td>";
             echo "</tr>";
         }
         echo "</table>";
         mysqli_free_result($result);
         mysqli_close($conection);
+    }
+    function isGM($idPj,$hermandadGM){
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
+        mysqli_select_db($conection, "dungeonrio");
+
+        $sql = "SELECT p.nombre
+                FROM miembro AS m 
+                INNER JOIN personaje AS p ON m.ID_personaje = p.ID 
+                INNER JOIN hermandad AS h ON m.ID_hermandad = h.ID 
+                WHERE h.ID = $hermandadGM AND p.ID = $idPj AND m.rango = 'GM'";
+        $result = mysqli_query($conection,$sql);
+        if (mysqli_fetch_array($result) != null) {
+            mysqli_free_result($result);
+            mysqli_close($conection);
+            return true;
+        }else {
+            mysqli_free_result($result);
+            mysqli_close($conection);
+            return false;
+        }
     }
 
     if (isset($_GET["buscar"])) {
