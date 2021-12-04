@@ -21,10 +21,13 @@ CREATE TABLE personaje(ID INT AUTO_INCREMENT UNIQUE,
 							especializacion VARCHAR(20),
 							favorito BOOLEAN,
 							ID_jugador INT,
-							ID_hermandad INT,
 							puntuacion INT,
 							PRIMARY KEY (ID),
-							FOREIGN KEY (ID_jugador) REFERENCES jugador(ID) ON DELETE CASCADE,
+							FOREIGN KEY (ID_jugador) REFERENCES jugador(ID) ON DELETE CASCADE);
+CREATE TABLE miembro(ID_personaje INT,
+							ID_hermandad INT,
+							rango VARCHAR(50),
+							FOREIGN KEY (ID_personaje) REFERENCES personaje(ID) ON DELETE CASCADE,
 							FOREIGN KEY (ID_hermandad) REFERENCES hermandad(ID) ON DELETE CASCADE);
 CREATE TABLE grupo(ID INT AUTO_INCREMENT UNIQUE,
 						nombre VARCHAR(50) UNIQUE,
@@ -70,28 +73,47 @@ VALUES("La Cruzada Escarlata",10);
 INSERT INTO hermandad(nombre,avance)
 VALUES("El Imperio Desconocido",8);
 
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Andgrod","Paladin","Tank",TRUE,1,1,213);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Andgrod","Paladin","Tank",TRUE,1,213);
 INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
 VALUES("Ceilir","Druida","Tank",FALSE,1,115);
 INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
 VALUES("Chencor","Guerrero","Tank",FALSE,1,100);
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Ichirai","Monje","DPS",TRUE,2,1,243);
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Cerhor","Guerrero","DPS",TRUE,3,1,0);
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Apse","Caballero de la Muerte","Tank",TRUE,4,1,153);
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Ace","Paladin","Healer",TRUE,5,1,0);
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Bhikuni","Monje","Tank",TRUE,4,1,110);
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Ceror","Caballero de la Muerte","DPS",FALSE,3,1,0);
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Pachamama","Druida","Healer",TRUE,6,1,0);
-INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,ID_hermandad,puntuacion)
-VALUES("Icadi","Druida","Healer",TRUE,7,1,0);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Ichirai","Monje","DPS",TRUE,2,243);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Cerhor","Guerrero","DPS",TRUE,3,0);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Apse","Caballero de la Muerte","Tank",TRUE,4,153);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Ace","Paladin","Healer",TRUE,5,0);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Bhikuni","Monje","Tank",TRUE,4,110);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Ceror","Caballero de la Muerte","DPS",FALSE,3,0);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Pachamama","Druida","Healer",TRUE,6,0);
+INSERT INTO personaje(nombre, clase, especializacion, favorito, ID_jugador,puntuacion)
+VALUES("Icadi","Druida","Healer",TRUE,7,0);
+
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(1,1,"GM");
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(4,1,"miembro");
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(5,1,"miembro");
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(6,1,"miembro");
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(7,1,"miembro");
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(8,1,"miembro");
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(9,1,"miembro");
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(10,1,"miembro");
+INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+VALUES(11,1,"miembro");
 
 INSERT INTO mazmorra(nombre,tiempoMaximo)
 VALUES("Reposo de los Reyes","0:40:0");
