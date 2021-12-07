@@ -1,4 +1,5 @@
 <?php
+    // ini_set('display_errors', 1);
     function GetTopPersonajes($espec){
         $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
@@ -155,13 +156,15 @@
         $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
 
-        $sql = "SELECT p.nombre
+        $sql = "SELECT p.nombre,j.VIP
                 FROM miembro AS m 
-                INNER JOIN personaje AS p ON m.ID_personaje = p.ID 
-                INNER JOIN hermandad AS h ON m.ID_hermandad = h.ID 
-                WHERE h.ID = $hermandadGM AND p.ID = $idPj AND m.rango = 'GM'";
+                INNER JOIN personaje AS p ON m.ID_personaje = p.ID
+                INNER JOIN jugador AS j ON p.ID_jugador = j.ID
+                INNER JOIN hermandad AS h ON m.ID_hermandad = h.ID
+                WHERE h.ID = $hermandadGM AND j.ID = $idPj AND m.rango = 'GM'";
         $result = mysqli_query($conection,$sql);
-        if (mysqli_fetch_array($result) != null) {
+        $rowGM = mysqli_fetch_array($result);
+        if ($rowGM != null && $rowGM[1] == 1) {
             mysqli_free_result($result);
             mysqli_close($conection);
             return true;
@@ -172,13 +175,55 @@
         }
     }
 
+    if (isset($_POST["descripcionhermandad"])) {
+        $descripcionhermandad = $_POST["descripcionhermandad"];
+        $descripcionIDhermandad = $_POST["IDDescripcion"];
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
+        mysqli_select_db($conection, "dungeonrio");
+        $sqlidescripcionhermandad = "UPDATE hermandad SET descripcion = '$descripcionhermandad' WHERE ID = '$descripcionIDhermandad';";
+        mysqli_query($conection,$sqlidescripcionhermandad);
+        mysqli_close($conection);
+        echo "Descripcion actualizada";
+    }
+
+    if (isset($_GET["addHPjNombre"])) {
+        $addHPjNombre = $_GET["addHPjNombre"];
+        $addHPjIDHermandad = $_GET["addHPjIDHermandad"];
+        $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
+        mysqli_select_db($conection, "dungeonrio");
+
+        $sqlHAddPj = "SELECT ID FROM personaje WHERE nombre = '$addHPjNombre';";
+        $resultHAddPj = mysqli_query($conection,$sqlHAddPj);
+        $rowHAddPj = mysqli_fetch_array($resultHAddPj);
+        if ($rowHAddPj != null) {
+            $idPjAdd = $rowHAddPj[0];
+            $sqlMiembro = "SELECT * FROM miembro WHERE ID_personaje = $idPjAdd;";
+            $resultMiembro = mysqli_query($conection,$sqlMiembro);
+            $rowMiembro = mysqli_fetch_array($resultMiembro);
+            if ($rowMiembro == null) {
+                $sql = "INSERT INTO miembro(ID_personaje,ID_hermandad,rango)
+                    VALUES($idPjAdd,$addHPjIDHermandad,'miembro');";
+                mysqli_query($conection,$sql);
+                echo "Personaje añadido a la hermandad";
+            }else {
+                echo "El personaje ya pertenece a una hermandad";
+            }
+            mysqli_free_result($resultMiembro);
+        }else {
+            echo "El personaje no existe";
+        }
+
+        mysqli_free_result($resultHAddPj);
+        mysqli_close($conection);
+    }
+
     if (isset($_GET["buscar"])) {
         $nombre = $_GET["buscar"];
         $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
-        $sql = "SELECT concat('1-', id) AS value ,nombre AS label FROM personaje WHERE nombre LIKE '%$nombre%'
+        $sql = "SELECT concat('1-', id) AS value ,nombre AS label FROM personaje WHERE nombre LIKE '$nombre%'
                 UNION
-                SELECT concat('2-', id) AS value ,nombre AS label FROM hermandad WHERE nombre LIKE '%$nombre%'";
+                SELECT concat('2-', id) AS value ,nombre AS label FROM hermandad WHERE nombre LIKE '$nombre%'";
         $result = mysqli_query($conection,$sql);
         $respuesta = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -353,6 +398,7 @@
 
         mysqli_close($conection);
     }
+
     if (isset($_GET["nombreMazmorra"])) {
         $nombreMazmorra = $_GET["nombreMazmorra"];
         $nombrePjRealizada = $_GET["nombrePjRealizada"];
@@ -427,6 +473,7 @@
         }
         mysqli_close($conection);
     }
+
     if (isset($_GET["hermandadProgreso"])) {
         $hermandadProgreso = $_GET["hermandadProgreso"];
         $jefe = $_GET["jefe"];
@@ -457,6 +504,7 @@
         mysqli_free_result($resultIDHermandad);
         mysqli_close($conection);
     }
+
     if (isset($_GET["usuario"])) {
         $usuario = $_GET["usuario"];
         $contra = $_GET["contra"];
@@ -476,4 +524,5 @@
         mysqli_free_result($resultJugador);
         mysqli_close($conection);
     }
+
 ?>

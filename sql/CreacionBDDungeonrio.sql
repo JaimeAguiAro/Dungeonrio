@@ -14,6 +14,7 @@ CREATE TABLE jugador(ID INT AUTO_INCREMENT UNIQUE,
 							contraseña VARCHAR(20),
 							descripcion VARCHAR(200),
 							ID_hermandad INT,
+							VIP BOOLEAN,
 							PRIMARY KEY (ID));
 CREATE TABLE personaje(ID INT AUTO_INCREMENT UNIQUE,
 							nombre VARCHAR(20) UNIQUE,

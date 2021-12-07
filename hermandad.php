@@ -50,13 +50,13 @@
                 </div>
                 <div class="col border bg-light p-2" style="min-height: 400px;">
                     <p class="col border bg-secondary fw-bold p-2 text-light">Descripcion</p>
-                    <span>
+                    <span id="descripcionHermandadDOM">
                         <?php 
                         
                         if ($row["descripcion"] != null) {
                             echo $row["descripcion"]; 
                         }else {
-                            echo "Esta hermandad esta reunidad en la posada despues de raid, mañana escribiran una Descripcion";
+                            echo "Esta hermandad esta reunida en la posada despues de raid, mañana escribiran una descripcion";
                         }
                         
                         ?>
@@ -88,47 +88,45 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label class="form-label" for="descripcion">Descripcion</label><br>
-                    <textarea class="form-cotrol" id="descripcion" name="descripcion" value=<?php echo '"'.$row["descripcion"].'"'; ?> style="resize: none; height: 150px;min-width: 50%;"></textarea>
+                    <textarea class="form-cotrol" id="descripcionhermandad" style="resize: none; height: 150px;min-width: 50%;"><?php echo $row["descripcion"]; ?></textarea>
+                    <br><button class="btn btn-primary mt-2" onclick="HermandadDescripcion()">Actualizar</button>
                     <p class="m-4">
-                        <a class="btn btn-dark" data-bs-toggle="collapse" href="#contraseñaCollapse" role="button" aria-expanded="false" aria-controls="contraseñaCollapse">Cambiar Contraseña</a>
+                        <a class="btn btn-dark" data-bs-toggle="collapse" href="#addPjCollapse" role="button" aria-expanded="false" aria-controls="addPjCollapse">Añadir Personaje</a>
                     </p>
-                    <div class="collapse" id="contraseñaCollapse">
+                    <div class="collapse" id="addPjCollapse">
                         <div class="card card-body" style="min-width: 50%;">
-                            <form action="backendConfiguracion.php" method="POST">
-                                <div class="mb-3">
-                                    <label for="pass" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" name="pass" id="pass">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
-                                    <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
-                                </div>
-                                <button type="submit" name="contra" value="<?php echo $_SESSION["id"] ?>" class="btn btn-dark">Cambiar Contraseña</button>
-                            </form>
+                            <div class="mb-3">
+                                <label for="addHPjNombre" class="form-label">Personaje</label>
+                                <input type="text" class="form-control" name="addHPjNombre" id="addHPjNombre">
+                            </div>
+                            <button type="submit" onclick="HermandadAddPj()" class="btn btn-dark">Añadir Personaje</button>
                         </div>
                     </div>
                     <script type="text/javascript">
                         function HermandadDescripcion(){
                             var descripcionhermandad = document.getElementById("descripcionhermandad").value;
+                            var IDDescripcion = <?php echo $_POST['id']; ?>;
                             $.ajax({
-                                type: "GET",
+                                type: "POST",
                                 url: 'backend.php',
-                                data: {descripcionhermandad:descripcionhermandad},
+                                data: {descripcionhermandad:descripcionhermandad,IDDescripcion:IDDescripcion},
                                 success: function(res)
                                 {
+                                    location.reload();
                                     alert(res);
                                 }
                             });
                         }
                         function HermandadAddPj(){
-                            var descripcionhermandad = document.getElementById("descripcionhermandad").value;
-                            var descripcionhermandad = document.getElementById("descripcionhermandad").value;
+                            var addHPjNombre = document.getElementById("addHPjNombre").value;
+                            var addHPjIDHermandad = <?php echo $_POST['id']; ?>;
                             $.ajax({
                                 type: "GET",
                                 url: 'backend.php',
-                                data: {descripcionhermandad:descripcionhermandad},
+                                data: {addHPjNombre:addHPjNombre,addHPjIDHermandad:addHPjIDHermandad},
                                 success: function(res)
                                 {
+                                    location.reload();
                                     alert(res);
                                 }
                             });

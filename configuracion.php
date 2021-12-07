@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="descripcion">Descripcion</label><br>
-                                    <textarea class="form-cotrol" id="descripcion" name="descripcion" placeholder="Leave a comment here" style="resize: none; height: 150px;min-width: 50%;"></textarea>
+                                    <textarea class="form-cotrol" id="descripcion" name="descripcion" placeholder="<?php getDescripconPj($_SESSION["id"]); ?>" style="resize: none; height: 150px;min-width: 50%;"></textarea>
                                 </div>
                                 <button type="submit" name="datos" value="<?php echo $_SESSION["id"] ?>" class="btn btn-primary">Actualizar</button>
                             </form>
@@ -78,9 +78,25 @@
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="border p-3 bg-body">
-                            <div class="alert alert-warning" role="alert">
-                                Adquiera una version mejor para poder modificar su personaje favorito
-                            </div>
+                            <?php
+
+                            $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
+                            mysqli_select_db($conection, "dungeonrio");
+                    
+                            $sqlVIP = "SELECT VIP FROM jugador WHERE ID = ".$_SESSION['id'].";";
+                            $resultVIP = mysqli_query($conection,$sqlVIP);
+                            $rowVIP = mysqli_fetch_array($resultVIP);
+
+                            if ($rowVIP[0] == 1) {
+                                getPJJugador($_SESSION['id']);
+                            }else {
+                                ?>
+                                <div class='alert alert-warning' role='alert'>Adquiera una version mejor para poder modificar su personaje favorito</div>
+                                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#hacerteVIP">Hacerse VIP</button>
+                                <?php
+                            }
+
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -90,5 +106,52 @@
     <?php
         include "footer.php";
     ?>
+    <div class="modal fade" tabindex="-1" aria-labelledby="hacerteVIPLabel" aria-hidden="true" id="hacerteVIP">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hacerteVIPLabel">Hacerse VIP</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <p class="alert alert-warning">Al hacerte VIP por 5€ disfrutaras de varias ventajas, como poder elejir tu personaje favorito para que el resto lo vea o poder administrar tu hermandad</p>
+                        <button class="btn btn-primary" onclick="hacerseVIP()">Hacerme VIP</button>
+                        <script type="text/javascript">
+                            function hacerseVIP(){
+                                var idJugadorVIP = <?php echo $_SESSION["id"] ?>;
+                                $.ajax({
+                                    type: "POST",
+                                    url: 'backendConfiguracion.php',
+                                    data: {idJugadorVIP:idJugadorVIP},
+                                    success: function(res)
+                                    {
+                                        location.reload();
+                                        alert(res);
+                                    }
+                                });
+                            }
+                        </script>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function actualizarFavorito(){
+            var personajeFavorito = $("input[type='radio'][name='personajeFavorito']:checked").val();
+            var idJugadorFavorito = <?php echo $_SESSION["id"] ?>;
+            $.ajax({
+                type: "POST",
+                url: 'backendConfiguracion.php',
+                data: {personajeFavorito:personajeFavorito,idJugadorFavorito:idJugadorFavorito},
+                success: function(res)
+                {
+                    location.reload();
+                    alert(res);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
