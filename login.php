@@ -13,8 +13,6 @@
     <title>Login</title>
     <link rel="icon" href="img/logo.png">
     <link rel="stylesheet" href="estilos/login.css">
-</head>
-<body>
     <?php
         $error = false;
         if (isset($_POST["login"])) {
@@ -50,6 +48,8 @@
             }
         }
     ?>
+</head>
+<body>
     <form class="box" action="login.php" method="post">
         <h1><a href="index.php">
                     <img src="img/logo.png" alt="logo" width="30" height="30">

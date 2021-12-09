@@ -62,7 +62,7 @@
             <?php 
 
             } 
-            if (isset($_POST['id'])) {
+            if (isset($_POST['id']) && isset($_SESSION['id'])) {
                 if (isGM($_SESSION['id'],$_POST['id'])) {
                     ?>
                         <li class="nav-item">

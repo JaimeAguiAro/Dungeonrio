@@ -47,7 +47,11 @@
                     </div>
                     <div class="col row m-2">
                         <p class="d-flex align-items-center col row text-center">
-                            <span class="border bg-light p-2 fw-bold col m-2"><?php echo $row["nombre"]; ?></span>
+                            <span class="border bg-light p-2 fw-bold col m-2"><?php echo $row["nombre"]; 
+                            if ($row["favorito"]) {
+                                echo " <img src='img/outline_star_black_18dp.png' alt='Favorito'>";
+                            }
+                            ?></span>
                             <span class="border bg-light p-2 fw-bold col m-2"><?php echo $row["clase"]; ?></span>
                             <span class="border bg-light p-2 fw-bold col m-2"><?php echo $row["especializacion"]; ?></span>
                             <span class="border bg-light p-2 fw-bold col m-2"><?php echo $row["puntuacion"]; ?></span>
