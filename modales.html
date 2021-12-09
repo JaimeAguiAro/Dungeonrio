@@ -209,7 +209,7 @@
                         function añadirProgreso(){
                             var hermandadProgreso = document.getElementById("hermandadProgreso").value;
                             var jefe = document.getElementById("jefe").value;
-                            if (jefe < 10 && jefe > 1) {
+                            if (jefe <= 10 && jefe >= 1) {
                                 $.ajax({
                                 type: "GET",
                                 url: 'backend.php',
