@@ -80,7 +80,6 @@
                 echo "<button type='button' class='btn btn-secondary dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'>".$_SESSION['user']."</button>
                     <ul class='dropdown-menu'>
                         <li><a class='dropdown-item' href='configuracion.php'>Configuracion</a></li>
-                        <li><a class='dropdown-item' href='#'>Another action</a></li>
                         <li><hr class='dropdown-divider'></li>
                         <li><a class='dropdown-item' id='cerrarSesion' style='cursor: pointer;'>Cerrar Sesion</a></li>
                     </ul>";

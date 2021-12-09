@@ -5,7 +5,7 @@ USE Dungeonrio;
 
 CREATE TABLE hermandad(ID INT AUTO_INCREMENT UNIQUE,
 							nombre VARCHAR(50) UNIQUE,
-							logo VARCHAR(20),
+							logo VARCHAR(50),
 							descripcion VARCHAR(200),
 							avance INT,
 							PRIMARY KEY (ID));
@@ -69,8 +69,8 @@ VALUES("Icadi","Icadi");
 INSERT INTO jugador(usuario,contraseña)
 VALUES("Admin","Admin");
 
-INSERT INTO hermandad(nombre,avance)
-VALUES("La Cruzada Escarlata",10);
+INSERT INTO hermandad(nombre,avance,logo)
+VALUES("La Cruzada Escarlata",10,"img/cruzadaEscarlataLogo.jpg");
 INSERT INTO hermandad(nombre,avance)
 VALUES("El Imperio Desconocido",8);
 

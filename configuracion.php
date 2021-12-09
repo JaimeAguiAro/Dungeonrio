@@ -1,5 +1,5 @@
 <?php 
-    // ini_set('display_errors', 1);
+    ini_set('display_errors', 1);
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -39,42 +39,64 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="border p-3 bg-body">
-                            <?php 
-                                if (isset($_SESSION["error"])) {
-                                    echo '<p class="text-danger border border-danger p-2">'.$_SESSION["error"].'</p>';
-                                    unset($_SESSION["error"]);
-                                }
-                            ?>
-                            <form method="POST" action="backendConfiguracion.php">
-                                <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre" value="<?php  echo $_SESSION["user"] ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="descripcion">Descripcion</label><br>
-                                    <textarea class="form-cotrol" id="descripcion" name="descripcion" placeholder="<?php getDescripconPj($_SESSION["id"]); ?>" style="resize: none; height: 150px;min-width: 50%;"></textarea>
-                                </div>
-                                <button type="submit" name="datos" value="<?php echo $_SESSION["id"] ?>" class="btn btn-primary">Actualizar</button>
-                            </form>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre" value="<?php  echo $_SESSION["user"] ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="descripcion">Descripcion</label><br>
+                                <textarea class="form-cotrol" id="descripcion" name="descripcion" placeholder="<?php getDescripconPj($_SESSION["id"]); ?>" style="resize: none; height: 150px;min-width: 50%;"></textarea>
+                            </div>
+                            <button onclick="actualizarDatos()" class="btn btn-primary">Actualizar</button>
                             <p class="m-4">
                                 <a class="btn btn-dark" data-bs-toggle="collapse" href="#contraseñaCollapse" role="button" aria-expanded="false" aria-controls="contraseñaCollapse">Cambiar Contraseña</a>
                             </p>
                             <div class="collapse" id="contraseñaCollapse">
                                 <div class="card card-body" style="min-width: 50%;">
-                                    <form action="backendConfiguracion.php" method="POST">
-                                        <div class="mb-3">
-                                            <label for="pass" class="form-label">Contraseña</label>
-                                            <input type="password" class="form-control" name="pass" id="pass">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
-                                            <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
-                                        </div>
-                                        <button type="submit" name="contra" value="<?php echo $_SESSION["id"] ?>" class="btn btn-dark">Cambiar Contraseña</button>
-                                    </form>
+                                    <div class="mb-3">
+                                        <label for="pass" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" name="pass" id="pass">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
+                                        <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
+                                    </div>
+                                    <button onclick="actualizarPass()" class="btn btn-dark" style="width: 20%;">Cambiar Contraseña</button>
                                 </div>
                             </div>
                         </div>
+                        <script type="text/javascript">
+                            function actualizarDatos(){
+                                var idJugador = <?php echo $_SESSION["id"] ?>;
+                                var nombre = document.getElementById("nombre").value;
+                                var descripcion = document.getElementById("descripcion").value;
+                                $.ajax({
+                                    type: "POST",
+                                    url: 'backendConfiguracion.php',
+                                    data: {idJugador:idJugador,nombre:nombre,descripcion:descripcion},
+                                    success: function(res)
+                                    {
+                                        location.reload();
+                                        alert(res);
+                                    }
+                                });
+                            }
+                            function actualizarPass(){
+                                var idJugadorPass = <?php echo $_SESSION["id"] ?>;
+                                var pass = document.getElementById("pass").value;
+                                var passConfirmar = document.getElementById("passConfirmar").value;
+                                $.ajax({
+                                    type: "POST",
+                                    url: 'backendConfiguracion.php',
+                                    data: {idJugadorPass:idJugadorPass,pass:pass,passConfirmar:passConfirmar},
+                                    success: function(res)
+                                    {
+                                        location.reload();
+                                        alert(res);
+                                    }
+                                });
+                            }
+                        </script> 
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="border p-3 bg-body">
