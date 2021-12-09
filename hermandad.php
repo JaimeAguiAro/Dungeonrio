@@ -26,7 +26,7 @@
         include "header.php";
         $conection = mysqli_connect('37.35.210.48', 'dungeonrio', '1qaz2WSX');
         mysqli_select_db($conection, "dungeonrio");
-        $id = $_POST['id'];
+        $id = $_POST['idHermandad'];
         $sql = "SELECT * FROM hermandad WHERE ID = $id;";
         $result = mysqli_query($conection,$sql);
         $row = mysqli_fetch_array($result);
@@ -111,7 +111,7 @@
                     <script type="text/javascript">
                         function HermandadDescripcion(){
                             var descripcionhermandad = document.getElementById("descripcionhermandad").value;
-                            var IDDescripcion = <?php echo $_POST['id']; ?>;
+                            var IDDescripcion = <?php echo $_POST['idHermandad']; ?>;
                             $.ajax({
                                 type: "POST",
                                 url: 'backend.php',
@@ -125,7 +125,7 @@
                         }
                         function HermandadAddPj(){
                             var addHPjNombre = document.getElementById("addHPjNombre").value;
-                            var addHPjIDHermandad = <?php echo $_POST['id']; ?>;
+                            var addHPjIDHermandad = <?php echo $_POST['idHermandad']; ?>;
                             $.ajax({
                                 type: "GET",
                                 url: 'backend.php',

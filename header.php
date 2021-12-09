@@ -33,7 +33,7 @@
                 break;
                 case "2":
                     var form = $('<form action="hermandad.php" method="post">' +
-                        '<input type="text" name="id" value="' + ui.item.value.split("-")[1] + '" />' +
+                        '<input type="text" name="idHermandad" value="' + ui.item.value.split("-")[1] + '" />' +
                         '</form>');
                     $('body').append(form);
                     form.submit();
@@ -65,8 +65,8 @@
             <?php 
 
             } 
-            if (isset($_POST['id']) && isset($_SESSION['id'])) {
-                if (isGM($_SESSION['id'],$_POST['id'])) {
+            if (isset($_POST['idHermandad']) && isset($_SESSION['id'])) {
+                if (isGM($_SESSION['id'],$_POST['idHermandad'])) {
                     ?>
                         <li class="nav-item">
                         <a class="nav-link active" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#HermandadGM">Administrar Hermandad</a>
