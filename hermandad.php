@@ -38,7 +38,13 @@
             <div class="row">
                 <div class="row bg-dark p-2 col-8 h-50">
                     <div class="col-2">
-                        <img class="img-thumbnail" src="img/logoHermandad.jpg" alt="fotoHermandad">
+                        <?php
+                            if ($row['logo'] == "") {
+                                echo "<img class='img-thumbnail' src='img/logoHermandad.jpg' alt='fotoHermandad'>";
+                            }else {
+                                echo "<img class='img-thumbnail' src='".$row['logo']."' alt='BDfotoHermandad'>";
+                            }
+                        ?>
                     </div>
                     <div class="col row m-2">
                         <p class="d-flex align-items-center col row text-center">
