@@ -23,6 +23,7 @@
             }
         });
         $("#busqueda").on('autocompleteselect', function (e, ui) {
+            e.preventDefault();
             switch (ui.item.value.split("-")[0]) {
                 case "1":
                     var form = $('<form action="personaje.php" method="post">' +

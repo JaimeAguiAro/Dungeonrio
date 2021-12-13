@@ -52,7 +52,7 @@
                                 <a class="btn btn-dark" data-bs-toggle="collapse" href="#contraseñaCollapse" role="button" aria-expanded="false" aria-controls="contraseñaCollapse">Cambiar Contraseña</a>
                             </p>
                             <div class="collapse" id="contraseñaCollapse">
-                                <div class="card card-body" style="min-width: 50%;">
+                                <div class="card card-body" style="width: 80%;">
                                     <div class="mb-3">
                                         <label for="pass" class="form-label">Contraseña</label>
                                         <input type="password" class="form-control" name="pass" id="pass">
@@ -61,7 +61,7 @@
                                         <label for="passConfirmar" class="form-label">Confirmar Contraseña</label>
                                         <input type="password" class="form-control" id="passConfirmar" name="passConfirmar">
                                     </div>
-                                    <button onclick="actualizarPass()" class="btn btn-dark" style="width: 20%;">Cambiar Contraseña</button>
+                                    <button onclick="actualizarPass()" class="btn btn-dark">Cambiar Contraseña</button>
                                 </div>
                             </div>
                         </div>
